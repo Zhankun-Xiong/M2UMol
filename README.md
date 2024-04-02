@@ -1,10 +1,10 @@
 # M2UMol
 Pre-training data, source code, and API for the paper "Multi-to-uni Modal Knowledge Transfer Pre-training for Molecular Representation Learning"
 
-![AppVeyor](https://img.shields.io/badge/python-3.7.10-blue)
-![AppVeyor](https://img.shields.io/badge/numpy-1.18.5-red)
-![AppVeyor](https://img.shields.io/badge/pytorch-1.7.1-brightgreen)
-![AppVeyor](https://img.shields.io/badge/torch--geometric-2.0.0-orange)
+![AppVeyor](https://img.shields.io/badge/dive-into-graphs-1.1.0-blue)
+![AppVeyor](https://img.shields.io/badge/pytorch-2.0.1-red)
+![AppVeyor](https://img.shields.io/badge/transformers-4.39.2-brightgreen)
+![AppVeyor](https://img.shields.io/badge/torch-geometric-2.3.1-orange)
 
 <p align="center">
   <img src="pics/overview.png" width="80%"/> 
@@ -12,14 +12,32 @@ Pre-training data, source code, and API for the paper "Multi-to-uni Modal Knowle
 
 
 ## Table of Contents
- - [Dataset](#Dataset)
  - [Environment](#Environment)
- - [Pretraining (MolT5-based models)](#pretraining-molt5-based-models)
- - [Finetuning (MolT5-based models)](#finetuning-molt5-based-models)
- - [Datasets](#datasets)
+ - [Pretraining M2UMol](#Pretraining-M2UMol)
+ - [Finetuning M2UMol](#Finetuning-on-three-tasks)
+ - [Datasets](#Datasets)
+ - [Example of M2UMol as a molecular encoder](#M2UMolencoder)
+ - [Molecular analysis API of M2UMol](#Molecular-analysis-API)
  - [Citation](#citation)
 
 ### Environment
+First, install conda:
+```
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+Then create a virtual environment and install packages by using our provided `environment.yml`, and install torch-geometric
+```
+conda env create -f environment.yml
+```
+and install torch-geometric and additional dependencies
+```
+conda activate M2UMol
+pip install torch_geometric
+pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.0.0+cu117.html
+```
+### Environment
+
 
 
 ### Dataset
