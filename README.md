@@ -7,7 +7,7 @@ Pre-training data, source code, and API for the paper "Multi-to-uni Modal Knowle
 ![AppVeyor](https://img.shields.io/badge/torch--geometric-2.0.0-orange)
 
 <p align="center">
-  <img src="pics/overview.pdf" /> 
+  <img src="pics/overview.pdf" width="80%"/> 
 </p>
 
 
