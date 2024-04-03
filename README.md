@@ -17,7 +17,7 @@ Pre-training data, source code, and API for the paper "Multi-to-uni Modal Knowle
  - [Finetuning M2UMol](#Finetuning-on-three-tasks)
  - [Datasets](#Datasets)
  - [A Example of M2UMol as a molecular encoder](#A-Example-of-M2UMol-as-a-molecular-encoder)
- - [Molecular analysis API of M2UMol](#Molecular-analysis-API)
+ - [Molecular analysis API of M2UMol](#Molecular-analysis-API-of-M2UMol)
  - [Citation](#citation)
 
 ## Environment
@@ -97,12 +97,12 @@ Since we used the DrugBAN framework for DTI prediction, the biosnap and BioSNAP 
 
 
 ## A Example of M2UMol as a molecular encoder
-For how to use M2UMol as a general molecular encoder, we present an example in [here]:
+For how to use M2UMol as a general molecular encoder, we present an example in [here], which can directly take SMILES as inputs and learn a multimodal representations:
 ```python
 from data_process import create_all_graph_data,construct_graph
 from M2UMol import M2UMolencoder
 import torch
-smiles_list=['ClC1=CC2=C(NC(=O)CN=C2C2=CC=CC=C2Cl)C=C1']
+smiles_list=['ClC1=CC2=C(NC(=O)CN=C2C2=CC=CC=C2Cl)C=C1']  # input SMILES
 graph=construct_graph(create_all_graph_data(smiles_list),0).to(device)
 #Define M2UMol encoder
 model=M2UMolencoder()
@@ -125,22 +125,10 @@ The output is:
 final representation
 [[-1.20773971e+00  9.97009516e-01  5.55726171e-01  2.88000011e+00 ... -6.52980864e-01 -8.60271811e-01  1.30764246e-01  2.13101649e+00]]
 ```
-Our pre-trained M2UMol can  be easily used as a molecular encoder for a various molecular-related tasks, and because it is only a part of our pre-trained model, it is very efficient and lightweight for fine-tuning
+Our pre-trained M2UMol can be easily used as a molecular encoder for a various molecular-related tasks, and because it is only a part of our pre-trained model, it is very efficient and lightweight for fine-tuning
 
 
 
-## A Example of M2UMol as a molecular encoder
+## Molecular analysis API of M2UMol
+Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modes, we developed a molecular analysis API. It can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and synthesize drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development
 
-
-1.Learning drug structural features from drug molecular graphs, you need to change the path in 'drugfeature_fromMG.py' first. If you want use MRCGNN on your own dataset, please ensure the datas in 'trimnet' folds and the datas in 'codes for MRCGNN' folds are the same.)
-
-```
-python drugfeature_fromMG.py
-```
-
-2.Training/validating/testing for 5 times and get the average scores of multiple metrics.
-```
-python 5timesrun.py
-```
-
-3.You can see the final results of 5 runs in 'test.txt'
