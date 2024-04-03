@@ -36,10 +36,14 @@ conda activate M2UMol
 pip install torch_geometric
 pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.0.0+cu117.html
 ```
-### Environment
+### Pretraining M2UMol
+You can first check the 'settings' in 'run_pretrain.py', and modify them according to your needs. You can also set parameters directly in the training command, for example:
+```
+python run_pretrain.py --lr 0.001 --batch 32 --epochs 150 --mcls_loss_ratio 0.5 --output_name M2UMol
+```
+For the Text encoder, we utlized pre-trained PubMedBERT by Microsoft. We download pre-trained PubMedBERT at [this Hugging Face link](https://huggingface.co/microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext/tree/main), and save them in a folder named 'pretrained-PubMedBERT'. For the 3D encoder, we utlized ComENet, a recently proposed method as the encoder, and implement it by using the [dive-into-graphs](https://github.com/divelab/DIG)
 
-
-
+Note that the Text encoder and the 3D encoder are all further pre-trained in our pre-training phase, that is, the parameters of these models are not frozen.
 ### Dataset
  - [Multimodal pre-training dataset]() (txt format)
 
