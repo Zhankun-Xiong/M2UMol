@@ -86,8 +86,6 @@ For the molecular property prediction, the datasets can obtained by the followin
 wget http://snap.stanford.edu/gnn-pretrain/data/chem_dataset.zip
 unzip chem_dataset.zip
 ```
-Note that 
-
 
 #### Drug-drug interaction prediction
 For the drug-drug interaction prediction, we utilize the dataset from our previous work [MRCGNN](https://github.com/Zhankun-Xiong/MRCGNN), and applied cold start and scaffold split strategy to split the datasets, the details can be found in 'split.py'. After that, we obtain the DDI datasets in three folds(note that for the scaffold split setting, the training dataset and the test dataset are the same across three fold).
