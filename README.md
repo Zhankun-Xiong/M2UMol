@@ -53,22 +53,22 @@ We comprehensively verified the model performance of M2UMol through three downst
 ### Molecular property prediction
 
 ### Drug-drug interaction prediction
-For the drug-drug interaction prediction, you can use the following python script for training and testing for three times with three different seeds (for the cold start split setting, it means three different split):
+For the drug-drug interaction prediction, you can use the following commands for training and testing for three times with three different seeds (for the cold start split setting, it means three different split):
 ```
 python run.py
 ```
-You can also set different parameters in 'run.py' or run for one time by the following python script:
+You can also set different parameters in 'run.py' or run for one time by the following commands:
 ```
 python main.py --seed 0 --lr 0.0005 --batch 256 --weight_decay 0.0002 --dropout 0.7 --split scaffold
 ```
 where '--split cold' and '--split scaffold' can choose the split settings, we provide both cold start split setting and scaffold split setting, which we used in our paper.
 
 ### Drug-target interaction prediction
-For the drug-target interaction prediction, we utlized the framework of [DrugBAN](https://github.com/peizhenbai/DrugBAN) to evaluate the performances of M2UMol on the challenging cross-domain drug-target prediction tasks(named scaffold split setting in ou paper). Based on DrugBAN, we replace the molecular preprocessing procedure and the molecular encoder with our preprocessing procedure and M2UMol. You can use the following python script for training and testing for five times with five different seeds:
+For the drug-target interaction prediction, we utlized the framework of [DrugBAN](https://github.com/peizhenbai/DrugBAN) to evaluate the performances of M2UMol on the challenging cross-domain drug-target prediction tasks(named scaffold split setting in ou paper). Based on DrugBAN, we replace the molecular preprocessing procedure and the molecular encoder with our preprocessing procedure and M2UMol. You can use the following commands for training and testing for five times with five different seeds:
 ```
 python run.py
 ```
-You can also set different parameters in 'run.py' or run for one time by the following python script:
+You can also set different parameters in 'run.py' or run for one time by the following commands:
 ```
 python main.py --cfg "configs/DrugBAN_DA.yaml" --data bindingdb --split "cluster" --seed 0
 ```
@@ -81,7 +81,7 @@ We constructed the [multimodal pre-training dataset]() based on [DrugBank](https
 
 ### Fine-tuning datasets
 #### Molecular property prediction
-For the molecular property prediction, the datasets can obtained by the following python script:
+For the molecular property prediction, the datasets can obtained by the following commands:
 ```
 wget http://snap.stanford.edu/gnn-pretrain/data/chem_dataset.zip
 unzip chem_dataset.zip
@@ -130,5 +130,19 @@ Our pre-trained M2UMol can be easily used as a molecular encoder for a various m
 
 
 ## Molecular analysis API of M2UMol
-Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modes, we developed a molecular analysis API. It can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and synthesize drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development
+Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modes, we developed a molecular analysis API. It can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and synthesize drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development. To run the Molecular analysis tool, you can use the following command:
+```
+cd molecular_analysis
+python moleculartool.py
+```
+You will then be asked to enter the options:
+```
+Please enter the SMILES of the molecule:CC1CC2C3CC(C4=CC(=O)C=CC4(C3(C(CC2(C1(C(=O)CO)O)C)O)F)C)F
+Please enter the threshold of the attention coefficient:(-1,1), separated by Spaces:-1 0 0.5
+Select whether Generic Name is required: yes or no:no
+```
+Then a html fils will be generated in 'HTMLpainter' fold, you can open it up and view the molecular analysis we provided. Here, the analysis results of the example molecules are
+<p align="center">
+  <img src="pics/example_molecular_analysis.png" width="80%"/> 
+</p>
 
