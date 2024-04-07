@@ -1,10 +1,11 @@
 # M2UMol
 Pre-training data, source code, and API for the paper "Multi-to-uni Modal Knowledge Transfer Pre-training for Molecular Representation Learning"
 
-![AppVeyor](https://img.shields.io/badge/dive_into_graphs-1.1.0-blue)
 ![AppVeyor](https://img.shields.io/badge/pytorch-2.0.1-red)
-![AppVeyor](https://img.shields.io/badge/transformers-4.39.2-brightgreen)
 ![AppVeyor](https://img.shields.io/badge/torch_geometric-2.3.1-orange)
+![AppVeyor](https://img.shields.io/badge/dive_into_graphs-1.1.0-blue)
+![AppVeyor](https://img.shields.io/badge/transformers-4.39.2-brightgreen)
+
 
 <p align="center">
   <img src="pics/overview.png" width="80%"/> 
