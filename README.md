@@ -47,6 +47,8 @@ For the Text encoder, we utlized a pre-trained large language model (LLM) PubMed
 
 Note that the Text encoder and the 3D encoder are all further pre-trained in our pre-training phase, that is, the parameters of these models are not frozen. In addition, you can easily replace different large language models and 3D conformation encoders by modifying the parameters in 'layer.py'.
 
+The paramters of our pre-trained M2UMol can be found in 'pre-trained_M2UMol.pt' in ... fold.
+
 ## Finetuning on three tasks
 We comprehensively verified the model performance of M2UMol through three downstream tasks: molecular property prediction, drug-drug interaction prediction and drug-target interaction prediction.
 
