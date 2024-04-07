@@ -130,19 +130,34 @@ Our pre-trained M2UMol can be easily used as a molecular encoder for a various m
 
 
 ## Molecular analysis API of M2UMol
-Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modes, we developed a molecular analysis API. It can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and synthesize drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development. To run the Molecular analysis tool, you can use the following command:
+Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modes, we developed a molecular analysis API. It can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and synthesize drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development. To run the Molecular analysis tool, you can use the following command: 
 ```
 cd molecular_analysis
 python moleculartool.py
 ```
-You will then be asked to enter the options:
+You will then be asked to enter the options. Here in, we take a molecule that did not appear in our pre-training as an example. For this molecule, only its SMILES is available in DrugBank, which can simulate an extreme case of molecular analysis where the available information about the molecule is sometimes very poor or only SMILES is available:
 ```
 Please enter the SMILES of the molecule:CC1CC2C3CC(C4=CC(=O)C=CC4(C3(C(CC2(C1(C(=O)CO)O)C)O)F)C)F
 Please enter the threshold of the attention coefficient:(-1,1), separated by Spaces:-1 0 0.5
 Select whether Generic Name is required: yes or no:no
 ```
-Then a html fils will be generated in 'HTMLpainter' fold, you can open it up and view the molecular analysis we provided. Here, the analysis results of the example molecules are
+Note that some molecules may have long generic names, you can often choose 'no' to make the result more concise.
+
+Then a html fils will be generated in 'HTMLpainter' fold, you can open it up and view the molecular analysis we provided. Here, the analysis results of the example molecules are：
 <p align="center">
   <img src="pics/example_molecular_analysis.png" width="80%"/> 
 </p>
 
+The specific explanations for each section are as follows:
+<p align="center">
+  <img src="pics/tool-1.png" width="80%"/> 
+</p>
+<p align="center">
+  <img src="pics/tool-2.png" width="80%"/> 
+</p>
+<p align="center">
+  <img src="pics/tool-3.png" width="80%"/> 
+</p>
+<p align="center">
+  <img src="pics/tool-4.png" width="80%"/> 
+</p>
