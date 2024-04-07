@@ -161,3 +161,15 @@ The specific explanations for each section are as follows:
 <p align="center">
   <img src="pics/tool-4.png" width="80%"/> 
 </p>
+
+
+## Cite Us
+Feel free to cite this work if you find it useful to you!
+```
+@article{M2UMol,
+    title={Multi-to-uni Modal Knowledge Transfer Pre-training for Molecular Representation Learning},
+    author={Zhankun Xiong, Ziyan Wang, Feng Huang, Minyao Qiu, Shuyan Fang, Liuqing Yang, Ping Zhang, and Wen Zhang},
+    title={Multi-to-uni Modal Knowledge Transfer Pre-training for Molecular Representation Learning},
+    year={2024},
+}
+```
