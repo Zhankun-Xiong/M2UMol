@@ -144,7 +144,7 @@ Select whether Generic Name is required: yes or no:no
 ```
 Note that some molecules may have long generic names, you can often choose 'no' to make the result more concise.
 
-Then a html fils will be generated in 'HTMLpainter' fold, which named in the format "$YOUR SMILES$-molecular_information.html". You can open it up and view the molecular analysis we provided (Note that a folder named $YOUR SMILES$ containing the attention visualizations and the molecular structure images will be generated, please keep this folder in the same directory as the html file). Here, the analysis results of the example molecules are：
+Then a html fils will be generated in 'HTMLpainter' fold, which named in the format "$YOUR SMILES$-molecular_information.html". You can open it up and view the molecular analysis we provided. Note that a folder named "$YOUR SMILES$" containing the attention visualizations and the molecular structure images will be generated, please keep this folder in the same directory as the html file). Here, the analysis results of the example molecules are：
 <p align="center">
   <img src="pics/example_molecular_analysis.png" width="80%"/> 
 </p>
