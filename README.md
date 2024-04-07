@@ -137,7 +137,7 @@ cd molecular_analysis
 python moleculartool.py
 ```
 You will then be asked to enter the options. Here in, we take a molecule that did not appear in our pre-training as an example. For this molecule, only its SMILES is available in DrugBank, which can simulate an extreme case of molecular analysis where the available information about the molecule is sometimes very poor or only SMILES is available:
-```python
+```
 Please enter the SMILES of the molecule:CC1CC2C3CC(C4=CC(=O)C=CC4(C3(C(CC2(C1(C(=O)CO)O)C)O)F)C)F
 Please enter the threshold of the attention coefficient:(-1,1), separated by Spaces:-1 0 0.5
 Select whether Generic Name is required: yes or no:no
