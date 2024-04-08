@@ -45,6 +45,12 @@ pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -
 
 ### Pre-training dataset
 We constructed the [multimodal pre-training dataset]() based on [DrugBank](https://go.drugbank.com/). We first download the full data in XML format from [this link](https://go.drugbank.com/releases/latest#full), and filter out molecules which can not be converted to the 2D molecular graph by RDKit. Then we can download the structure data of molecules in [this link](https://go.drugbank.com/releases/latest#structures), and extract molecular 2D and 3D structure from these data in SDF format, which is the [2Dstructures.sdf] and the [3Dstructures.sdf], respectively. After that, we extract the textual description of molecules from the full data, which is the [description-sup.csv]. Finally we extract the targets and enzymes the molecules can interact/affect and the drug categories the molecules belong to, and obtain lists of all the occurring targets, enzymes and drug categories. For every molecule, we encode it using one-hot encoding based on its association with target, enzyme and drug categories.
+| Modality | 2D structure | 3D structure | Textual description | Target | Enzyme | Drug category |
+| --- | --- | --- | --- | --- | --- | --- |
+| Number | 11571 | 9468 | 6427 | 7124 | 1696 | 7365 |
+<p align="center">
+  <img src="pics/vene.png" width="100%"/> 
+</p>
 
 ### Fine-tuning datasets
 #### Molecular property prediction
