@@ -24,7 +24,7 @@ This repository contains the pre-training data, source code, and API for the pap
  - [How to use M2UMol in your own project](#How-to-use-M2UMol-in-your-own-project)
  - [Citation](#citation)
 
-## Environment installation
+## 1 Environment installation
 First, install conda:
 ```
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -41,9 +41,9 @@ pip install torch_geometric=2.3.1
 pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.0.0+cu117.html
 ```
 
-## Dataset
+## 2 Dataset
 
-### Pre-training dataset
+### 2.1 Pre-training dataset
 We constructed the [multimodal pre-training dataset]() based on [DrugBank](https://go.drugbank.com/). We first download the full data in XML format from [this link](https://go.drugbank.com/releases/latest#full), and filter out molecules which can not be converted to the 2D molecular graph by RDKit. Then we can download the structure data of molecules in [this link](https://go.drugbank.com/releases/latest#structures), and extract molecular 2D and 3D structure from these data in SDF format, which is the [2Dstructures.sdf] and the [3Dstructures.sdf], respectively. After that, we extract the textual description of molecules from the full data, which is the [description-sup.csv]. Finally we extract the targets and enzymes the molecules can interact/affect and the drug categories the molecules belong to, and obtain lists of all the occurring targets, enzymes and drug categories. For every molecule, we encode it using one-hot encoding based on its association with target, enzyme and drug categories.
 | Modality | 2D structure | 3D structure | Textual description | Target | Enzyme | Drug category |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -52,7 +52,7 @@ We constructed the [multimodal pre-training dataset]() based on [DrugBank](https
   <img src="pics/vene.png" width="30%"/> 
 </p>
 
-### Fine-tuning datasets
+### 2.2 Fine-tuning datasets
 #### Molecular property prediction
 For the molecular property prediction, the datasets can obtained by the following commands:
 ```
@@ -79,7 +79,7 @@ The statistics about the data are as follows:
 | BindingDB | 14,643 | 2,623 | 49,199 |
 | BioSNAP | 4,510 | 2,181 | 27,464 |
 
-## Pretraining M2UMol
+## 3 Pretraining M2UMol
 You can first check the 'settings' in 'run_pretrain.py', and modify them according to your needs. You can also set parameters directly in the training command, for example:
 
 ```
@@ -92,7 +92,7 @@ Note that the Text encoder and the 3D encoder are all further pre-trained in our
 
 The paramters of our pre-trained M2UMol can be found in 'pre-trained_M2UMol.pt' in ... fold.
 
-## Finetuning on three downstream tasks
+## 4 Finetuning on three downstream tasks
 We comprehensively verified the model performance of M2UMol through three downstream tasks: molecular property prediction, drug-drug interaction prediction and drug-target interaction prediction.
 
 ### Downstream task 1 :Molecular property prediction
@@ -120,7 +120,7 @@ python main.py --cfg "configs/DrugBAN_DA.yaml" --data bindingdb --split "cluster
 where '--cfg' is the config file of DrugBAN, for the scaffold split setting, we recommend using 'DrugBAN_DA.yaml'. '--data' can choose the DTI datasets, 'bindingdb' and 'biosnap' are available. '--split' can choose the split settings, 'random' and 'cluster' are available('cluster' denotes the scaffold split setting in our paper).
 
 
-## Molecular analysis API of M2UMol
+## 5 Molecular analysis API of M2UMol
 Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modalities, we developed a molecular analysis API. To run it, you can use the following command: 
 ```
 cd molecular_analysis
@@ -132,7 +132,7 @@ Please enter the SMILES of the molecule:COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[
 Please enter the threshold of the attention coefficient:(-1,1), separated by Spaces:-1 0 0.5
 Select whether Generic Name is required: yes or no:no
 ```
-Note that some molecules may have long generic names, you can often choose 'no' to make the result more concise. Then a html fils will be generated in 'HTMLpainter' fold, which named in the format "$YOUR SMILES$-molecular_information.html". You can open it up and view the molecular analysis we provided. Note that a folder named "$YOUR SMILES$" containing the attention visualizations and the molecular structure images will be generated, please keep this folder in the same directory as the html file). Here, the analysis results of the example molecules are：
+Then you will obtain a a html files as follow:
 <p align="center">
   <img src="pics/molecular_analysis.png" width="100%"/> 
 </p>
@@ -151,9 +151,14 @@ The specific explanations for each section are as follows:
   <img src="pics/tool-4.png" width="80%"/> 
 </p>
 
-Here in, we the example molecule did not appear in our pre-training. For this molecule, only its SMILES is available in DrugBank, which can simulate an extreme case of molecular analysis where the available information about the molecule is sometimes very poor or only SMILES is available. The tool can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and synthesize drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development. 
+#### Matters needing attention about the API:
+1. The Canonical SMILES is recommended as the input.
+2. Some molecules may have long generic names, you can often choose 'no' to make the result more concise.
+3. The html file will be generated in 'HTMLpainter' fold, which named in the format "$YOUR SMILES$-molecular_information.html". You can open it up and view the molecular analysis we provided. In addition, a folder named "$YOUR SMILES$" containing the attention visualizations and the molecular structure images will be generated, please keep this folder in the same directory as the html file). 
 
-## How to use M2UMol in your own project
+Here in, the example molecule we chose did not appear in our pre-training phase. For this molecule, only its SMILES is available in DrugBank, which can simulate an extreme case of molecular analysis where the available information about the molecule is sometimes very poor or only SMILES is available. The tool can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and search drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development. 
+
+## 6 How to use M2UMol in your own project
 For how to use M2UMol as a general molecular encoder, we present an example in [here] and you can use it by using the command 'python toysample_encoder.py'. It can directly take SMILES as inputs and can learn fix representations with multimodal knowledge, which can be used as the feature or fingerprint of the molecule:
 ```python
 import torch
