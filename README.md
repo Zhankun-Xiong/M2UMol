@@ -123,22 +123,18 @@ where '--cfg' is the config file of DrugBAN, for the scaffold split setting, we 
 ## A Example of M2UMol as a molecular encoder
 For how to use M2UMol as a general molecular encoder, we present an example in [here], which can directly take SMILES as inputs and learn a multimodal representations:
 ```python
-from data_process import create_all_graph_data,construct_graph
-from M2UMol import M2UMolencoder
 import torch
-smiles_list=['ClC1=CC2=C(NC(=O)CN=C2C2=CC=CC=C2Cl)C=C1']  # input SMILES
-graph=construct_graph(create_all_graph_data(smiles_list),0).to(device)
-#Define M2UMol encoder
-model=M2UMolencoder()
-model.to(device)
-model.eval()
+from data_process import create_all_graph_data,construct_graph
+from M2UMol import M2UMolencoder, model_load
 
-#Load the pre-trained M2UMol model
-model_dict = model.state_dict() 
-pretrained_dict = torch.load('pre-trained_M2UMol.pt') 
-pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
-model_dict.update(pretrained_dict)
-model.load_state_dict(model_dict)  
+# Input the SMILES
+smiles_list=['ClC1=CC2=C(NC(=O)CN=C2C2=CC=CC=C2Cl)C=C1']
+graph=construct_graph(create_all_graph_data(smiles_list),0).cuda()
+
+#Define M2UMol encoder and load the pre-trained M2UMol model
+model=M2UMolencoder().cuda()
+model.eval()
+model=model_load(model,'pre-trained_M2UMol.pt')
 
 representation2d,generated_3d,generated_text,generated_bio=model(graph)
 print('final representation')
