@@ -139,16 +139,7 @@ Then you will obtain a a html files as follow:
 
 The specific explanations for each section are as follows:
 <p align="center">
-  <img src="pics/tool-1.png" width="80%"/> 
-</p>
-<p align="center">
-  <img src="pics/tool-2.png" width="80%"/> 
-</p>
-<p align="center">
-  <img src="pics/tool-3.png" width="80%"/> 
-</p>
-<p align="center">
-  <img src="pics/tool-4.png" width="80%"/> 
+  <img src="pics/molecular_analysis_des.png" width="100%"/> 
 </p>
 
 #### Matters needing attention about the API:
