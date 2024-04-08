@@ -59,6 +59,11 @@ For the molecular property prediction, the datasets can obtained by the followin
 wget http://snap.stanford.edu/gnn-pretrain/data/chem_dataset.zip
 unzip chem_dataset.zip
 ```
+The statistics about the data are as follows:
+| Dataset | BBBP | Tox21 | ToxCast | Sider | Clintox | MUV | HIV | BACE |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Tasks | 1 | 12 | 617 | 27 | 2 | 17 | 1 | 1 |
+| Molecules | 2,039 | 7,831 | 8,575 | 1,427 | 1,478 | 93,087 | 41,127 | 1,513 |
 
 #### Drug-drug interaction prediction
 For the drug-drug interaction prediction, we utilize the dataset from our previous work [MRCGNN](https://github.com/Zhankun-Xiong/MRCGNN), and applied cold start and scaffold split strategy to split the datasets, the details can be found in 'split.py'. After that, we obtain the DDI datasets in three folds(note that for the scaffold split setting, the training dataset and the test dataset are the same across three fold).
