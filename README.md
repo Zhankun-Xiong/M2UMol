@@ -17,20 +17,20 @@ This repository contains the pre-training data, source code, and API for the pap
 
 ## Table of Contents
  - [Environment](#Environment)
+ - [Datasets](#Datasets)
  - [Pretraining M2UMol](#Pretraining-M2UMol)
  - [Finetuning M2UMol](#Finetuning-on-three-tasks)
- - [Datasets](#Datasets)
  - [A Example of M2UMol as a molecular encoder](#A-Example-of-M2UMol-as-a-molecular-encoder)
  - [Molecular analysis API of M2UMol](#Molecular-analysis-API-of-M2UMol)
  - [Citation](#citation)
 
-## Environment
+## Environment installation
 First, install conda:
 ```
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh
 ```
-Then create a virtual environment and install packages by using our provided `environment.yml`, and install torch-geometric
+Then create a virtual environment and install packages by using our provided `environment.yml`, and install torch-geometric package：
 ```
 conda env create -f environment.yml
 ```
@@ -40,6 +40,25 @@ conda activate M2UMol
 pip install torch_geometric
 pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.0.0+cu117.html
 ```
+
+## Dataset
+
+### Pre-training dataset
+We constructed the [multimodal pre-training dataset]() based on [DrugBank](https://go.drugbank.com/). We first download the full data in XML format from [this link](https://go.drugbank.com/releases/latest#full), and filter out molecules which can not be converted to the 2D molecular graph by RDKit. Then we can download the structure data of molecules in [this link](https://go.drugbank.com/releases/latest#structures), and extract molecular 2D and 3D structure from these data in SDF format, which is the [2Dstructures.sdf] and the [3Dstructures.sdf], respectively. After that, we extract the textual description of molecules from the full data, which is the [description-sup.csv]. Finally we extract the targets and enzymes the molecules can interact/affect and the drug categories the molecules belong to, and obtain lists of all the occurring targets, enzymes and drug categories. For every molecule, we encode it using one-hot encoding based on its association with target, enzyme and drug categories.
+
+### Fine-tuning datasets
+#### Molecular property prediction
+For the molecular property prediction, the datasets can obtained by the following commands:
+```
+wget http://snap.stanford.edu/gnn-pretrain/data/chem_dataset.zip
+unzip chem_dataset.zip
+```
+
+#### Drug-drug interaction prediction
+For the drug-drug interaction prediction, we utilize the dataset from our previous work [MRCGNN](https://github.com/Zhankun-Xiong/MRCGNN), and applied cold start and scaffold split strategy to split the datasets, the details can be found in 'split.py'. After that, we obtain the DDI datasets in three folds(note that for the scaffold split setting, the training dataset and the test dataset are the same across three fold).
+
+#### Drug-target interaction prediction
+Since we used the DrugBAN framework for DTI prediction, the biosnap and BioSNAP datasets are downloaded in [DrugBAN datasets](https://github.com/peizhenbai/DrugBAN/tree/main/datasets). You can also find the data sources from [BindingDB](https://www.bindingdb.org/bind/index.jsp) and [BioSNAP](https://github.com/kexinhuang12345/MolTrans).
 ## Pretraining M2UMol
 You can first check the 'settings' in 'run_pretrain.py', and modify them according to your needs. You can also set parameters directly in the training command, for example:
 
@@ -79,25 +98,6 @@ You can also set different parameters in 'run.py' or run for one time by the fol
 python main.py --cfg "configs/DrugBAN_DA.yaml" --data bindingdb --split "cluster" --seed 0
 ```
 where '--cfg' is the config file of DrugBAN, for the scaffold split setting, we recommend using 'DrugBAN_DA.yaml'. '--data' can choose the DTI datasets, 'bindingdb' and 'biosnap' are available. '--split' can choose the split settings, 'random' and 'cluster' are available('cluster' denotes the scaffold split setting in our paper).
-
-## Dataset
-
-### Pre-training dataset
-We constructed the [multimodal pre-training dataset]() based on [DrugBank](https://go.drugbank.com/). We first download the full data in XML format from [this link](https://go.drugbank.com/releases/latest#full), and filter out molecules which can not be converted to the 2D molecular graph by RDKit. Then we can download the structure data of molecules in [this link](https://go.drugbank.com/releases/latest#structures), and extract molecular 2D and 3D structure from these data in SDF format, which is the [2Dstructures.sdf] and the [3Dstructures.sdf], respectively. After that, we extract the textual description of molecules from the full data, which is the [description-sup.csv]. Finally we extract the targets and enzymes the molecules can interact/affect and the drug categories the molecules belong to, and obtain lists of all the occurring targets, enzymes and drug categories. For every molecule, we encode it using one-hot encoding based on its association with target, enzyme and drug categories.
-
-### Fine-tuning datasets
-#### Molecular property prediction
-For the molecular property prediction, the datasets can obtained by the following commands:
-```
-wget http://snap.stanford.edu/gnn-pretrain/data/chem_dataset.zip
-unzip chem_dataset.zip
-```
-
-#### Drug-drug interaction prediction
-For the drug-drug interaction prediction, we utilize the dataset from our previous work [MRCGNN](https://github.com/Zhankun-Xiong/MRCGNN), and applied cold start and scaffold split strategy to split the datasets, the details can be found in 'split.py'. After that, we obtain the DDI datasets in three folds(note that for the scaffold split setting, the training dataset and the test dataset are the same across three fold).
-
-#### Drug-target interaction prediction
-Since we used the DrugBAN framework for DTI prediction, the biosnap and BioSNAP datasets are downloaded in [DrugBAN datasets](https://github.com/peizhenbai/DrugBAN/tree/main/datasets). You can also find the data sources from [BindingDB](https://www.bindingdb.org/bind/index.jsp) and [BioSNAP](https://github.com/kexinhuang12345/MolTrans).
 
 
 ## A Example of M2UMol as a molecular encoder
