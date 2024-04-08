@@ -181,7 +181,7 @@ final representation
 [[-1.20773971e+00  9.97009516e-01  5.55726171e-01  2.88000011e+00 ... -6.52980864e-01 -8.60271811e-01  1.30764246e-01  2.13101649e+00]]
 ```
 
-If you want fine-tuning M2UMol in your own downstream tasks, we also present an example in [here]. Our pre-trained M2UMol can be easily used as a molecular encoder for a various molecular-related tasks, and because it is only a part of our pre-trained model, it is very efficient and lightweight for fine-tuning
+If you want fine-tuning M2UMol in your own downstream tasks, we also present an example in [here] and you can use it by using the command 'python toysample_training.py'. Our pre-trained M2UMol can be easily used as a molecular encoder for a various molecular-related tasks, and because it is only a part of our pre-trained model, it is very efficient and lightweight for fine-tuning
 ```python
 import torch
 from data_process import create_all_graph_data,construct_graph,construct_graph_batch
