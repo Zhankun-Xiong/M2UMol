@@ -11,7 +11,7 @@ This repository contains the pre-training data, source code, and API for the pap
 
 ## Overview of M2UMol
 <p align="center">
-  <img src="pics/overview2.png" width="100%"/> 
+  <img src="pics/overview.png" width="100%"/> 
 </p>
 
 
@@ -121,20 +121,18 @@ where '--cfg' is the config file of DrugBAN, for the scaffold split setting, we 
 
 
 ## Molecular analysis API of M2UMol
-Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modes, we developed a molecular analysis API. It can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and synthesize drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development. To run the Molecular analysis tool, you can use the following command: 
+Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modalities, we developed a molecular analysis API. To run it, you can use the following command: 
 ```
 cd molecular_analysis
 python moleculartool.py
 ```
-You will then be asked to enter the options. Here in, we take a molecule that did not appear in our pre-training as an example. For this molecule, only its SMILES is available in DrugBank, which can simulate an extreme case of molecular analysis where the available information about the molecule is sometimes very poor or only SMILES is available:
+You will then be asked to enter the options. :
 ```
 Please enter the SMILES of the molecule:COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1
 Please enter the threshold of the attention coefficient:(-1,1), separated by Spaces:-1 0 0.5
 Select whether Generic Name is required: yes or no:no
 ```
-Note that some molecules may have long generic names, you can often choose 'no' to make the result more concise.
-
-Then a html fils will be generated in 'HTMLpainter' fold, which named in the format "$YOUR SMILES$-molecular_information.html". You can open it up and view the molecular analysis we provided. Note that a folder named "$YOUR SMILES$" containing the attention visualizations and the molecular structure images will be generated, please keep this folder in the same directory as the html file). Here, the analysis results of the example molecules are：
+Note that some molecules may have long generic names, you can often choose 'no' to make the result more concise. Then a html fils will be generated in 'HTMLpainter' fold, which named in the format "$YOUR SMILES$-molecular_information.html". You can open it up and view the molecular analysis we provided. Note that a folder named "$YOUR SMILES$" containing the attention visualizations and the molecular structure images will be generated, please keep this folder in the same directory as the html file). Here, the analysis results of the example molecules are：
 <p align="center">
   <img src="pics/example_molecular_analysis.png" width="80%"/> 
 </p>
@@ -153,7 +151,7 @@ The specific explanations for each section are as follows:
   <img src="pics/tool-4.png" width="80%"/> 
 </p>
 
-
+Here in, we the example molecule did not appear in our pre-training. For this molecule, only its SMILES is available in DrugBank, which can simulate an extreme case of molecular analysis where the available information about the molecule is sometimes very poor or only SMILES is available. The tool can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and synthesize drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development. 
 
 ## How to use M2UMol in your own project
 For how to use M2UMol as a general molecular encoder, we present an example in [here] and you can use it by using the command 'python toysample_encoder.py'. It can directly take SMILES as inputs and can learn fix representations with multimodal knowledge, which can be used as the feature or fingerprint of the molecule:
