@@ -11,7 +11,7 @@ This repository contains the pre-training data, source code, and API for the pap
 
 ## Overview of M2UMol
 <p align="center">
-  <img src="pics/overview4.png" width="100%"/> 
+  <img src="pics/overview2.png" width="100%"/> 
 </p>
 
 
