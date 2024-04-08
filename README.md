@@ -49,7 +49,7 @@ We constructed the [multimodal pre-training dataset]() based on [DrugBank](https
 | --- | --- | --- | --- | --- | --- | --- |
 | Number | 11571 | 9468 | 6427 | 7124 | 1696 | 7365 |
 <p align="center">
-  <img src="pics/vene.png" width="50%"/> 
+  <img src="pics/vene.png" width="30%"/> 
 </p>
 
 ### Fine-tuning datasets
