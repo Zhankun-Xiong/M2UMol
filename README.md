@@ -67,9 +67,18 @@ The statistics about the data are as follows:
 
 #### Drug-drug interaction prediction
 For the drug-drug interaction prediction, we utilize the dataset from our previous work [MRCGNN](https://github.com/Zhankun-Xiong/MRCGNN), and applied cold start and scaffold split strategy to split the datasets, the details can be found in 'split.py'. After that, we obtain the DDI datasets in three folds(note that for the scaffold split setting, the training dataset and the test dataset are the same across three fold).
-
+The statistics about the data are as follows:
+| --- | Molecules | DDIs | DDIE types |
+| --- | --- | --- | --- |
+| DDI dataset | 1,700 | 191,570 | 86 |
 #### Drug-target interaction prediction
 Since we used the DrugBAN framework for DTI prediction, the biosnap and BioSNAP datasets are downloaded in [DrugBAN datasets](https://github.com/peizhenbai/DrugBAN/tree/main/datasets). You can also find the data sources from [BindingDB](https://www.bindingdb.org/bind/index.jsp) and [BioSNAP](https://github.com/kexinhuang12345/MolTrans).
+The statistics about the data are as follows:
+| --- | Molecules | targets | DTIs |
+| --- | --- | --- | --- |
+| BindingDB | 14,643 | 2,623 | 49,199 |
+| BioSNAP | 4,510 | 2,181 | 27,464 |
+
 ## Pretraining M2UMol
 You can first check the 'settings' in 'run_pretrain.py', and modify them according to your needs. You can also set parameters directly in the training command, for example:
 
@@ -83,12 +92,12 @@ Note that the Text encoder and the 3D encoder are all further pre-trained in our
 
 The paramters of our pre-trained M2UMol can be found in 'pre-trained_M2UMol.pt' in ... fold.
 
-## Finetuning on three tasks
+## Finetuning on three downstream tasks
 We comprehensively verified the model performance of M2UMol through three downstream tasks: molecular property prediction, drug-drug interaction prediction and drug-target interaction prediction.
 
-### Molecular property prediction
+### Downstream task 1 :Molecular property prediction
 
-### Drug-drug interaction prediction
+### Downstream task 2 :Drug-drug interaction prediction
 For the drug-drug interaction prediction, you can use the following commands for training and testing for three times with three different seeds (for the cold start split setting, it means three different split):
 ```
 python run.py
@@ -99,7 +108,7 @@ python main.py --seed 0 --lr 0.0005 --batch 256 --weight_decay 0.0002 --dropout 
 ```
 where '--split cold' and '--split scaffold' can choose the split settings, we provide both cold start split setting and scaffold split setting, which we used in our paper.
 
-### Drug-target interaction prediction
+### Downstream task 3 :Drug-target interaction prediction
 For the drug-target interaction prediction, we utlized the framework of [DrugBAN](https://github.com/peizhenbai/DrugBAN) to evaluate the performances of M2UMol on the challenging cross-domain drug-target prediction tasks(named scaffold split setting in ou paper). Based on DrugBAN, we replace the molecular preprocessing procedure and the molecular encoder with our preprocessing procedure and M2UMol. You can use the following commands for training and testing for five times with five different seeds:
 ```
 python run.py
