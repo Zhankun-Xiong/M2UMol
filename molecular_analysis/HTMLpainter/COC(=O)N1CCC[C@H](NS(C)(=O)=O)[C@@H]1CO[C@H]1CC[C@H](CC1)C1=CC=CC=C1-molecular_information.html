@@ -1,0 +1,393 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="DIY可视化提供技术支持" />
+    <script src="https://cdn.tailwindcss.com"></script>
+     <style type="text/css">
+        .title { 
+          display: block;
+          font-size: 2.5em;
+          margin-top: 0em;
+          margin-bottom: 0em;
+          margin-left: 0;
+          margin-right: 0;
+          font-weight: bold;
+        }
+        .outerbox{            
+            width: 1300px;
+            height: 2000px;
+            opacity: 1;
+            border-radius: 20px;          
+            border: 6px solid rgba(238,228,219, 1);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0px 2px 4px  rgba(0, 0, 0, 0.25);
+        } 
+        .tablebox{
+            position: relative;
+                left: 10px;
+                top: 25px;
+
+             width: 1220px;
+             table-layout: fixed;
+             
+             border:1px solid rgba(0, 0, 0, 0.73) ;
+             cellspacing:"0", 
+        }
+        th, td {
+            border: 1px solid rgba(221,221,221,0.73); /* 设置表格线为1像素宽的黑色实线 */
+            text-overflow: ellipsis;
+            overflow: hidden;
+             vertical-align: top;
+            
+            }
+        .title2 { 
+          
+          display: block;
+          font-size: 1.5em;
+          
+          
+        }
+
+        .similarity_all{
+                position: relative;
+                left: 15px;
+                top: 45px;
+                width: 1230px;
+                height: 2000px;
+                opacity: 1;
+                
+                 }
+
+
+        .sim_overall{
+                position: relative;
+                left: 31px;
+                top: 45px;
+                width: 1224px;
+                height: 200px;
+                opacity: 1;
+                background-color: skyblue;
+                 }
+        .threshold{
+                position: relative;
+              float: left; 
+              left:90px;
+              top: 16px;
+              margin-right: 310px; 
+              opacity: 1;
+              font-size: 14px;
+                font-weight: 400;
+                line-height: 20.27px;
+                color: rgba(0, 0, 0, 1);
+                text-align: left;
+                vertical-align: top;
+       }
+        .sim_text{
+                position: relative;
+                left: 0.5px;
+                top: 0px;
+                width: 1000px;
+                height: 32px;
+                opacity: 1;
+                font-size: 20px;
+                font-weight: 700;
+                letter-spacing: 0px;
+                line-height: 28.96px;
+                color: rgba(0, 0, 0, 1);
+                text-align: left;
+                vertical-align: top;}
+        .d2andd3box{
+                left: 4px;
+                top: 0px;
+                width: 1220px;
+                height: 300px;
+                
+                opacity: 1;
+                
+            }
+        .d2d3_names{
+                
+                
+                
+                width: 200px;
+                height: 30px;
+                opacity: 1;
+                font-weight:bold;
+                font-size: 18px;
+                
+                }
+        .div-inline {
+              position: relative;
+              float: left; 
+              left:90px;
+              top: 16px;
+              margin-right: 180px; 
+              opacity: 1;
+              font-size: 14px;
+                font-weight: 400;
+                letter-spacing: 0px;
+                line-height: 20.27px;
+                color: rgba(0, 0, 0, 1);
+                text-align: left;
+                vertical-align: top;
+            }
+        .d2_imgs{
+                position: relative;
+                float: left; 
+                
+                left:0px;
+                top: 20px;
+                width: 240px;
+                height: 240px;
+                opacity: 1;}
+        .textbox{
+                left: 4px;
+                top: 49px;
+                width: 1220px;
+                height: 2000px;
+                opacity: 1;
+                
+            }
+        .texts{
+                position: relative;
+                float: left; 
+                
+                left:20px;
+                top: 20px;
+                width: 240px;
+                height: 600px;
+                opacity: 1;
+                
+                }
+
+        .biobox{
+                left: 4px;
+                top: 49px;
+                width: 1220px;
+                height: 800px;
+                opacity: 1;
+                
+            }
+
+        .commo-textover {
+            display:-webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:10;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            whitespace: normal;
+            word-wrap: break-word;
+            
+            }
+        .syn_botton {
+                
+                line-height: 1.42857;
+                background-color: white;
+                cursor: pointer;
+                font-weight: bold;
+                color: #878ecd;
+            }
+
+    </style>
+
+
+  </head>
+  <body>
+  
+  <div class="relative overflow-hidden gap-10 flex flex-col p-[3.75rem] justify-start items-center bg-[#f3f4f6]" > 
+      <h1 class="title" >The molecular analysis results provided by M2UMol</h1>  
+      <div class="outerbox">
+        
+        <div class="relative left-[0.875rem] top-[1.1875rem] w-[77rem] h-[4.125rem] overflow-hidden flex flex-col py-[0.1875rem] justify-start items-start " >
+           <h2 class="title2 "> The SMILES of current molecule: </h2>
+           <div > COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1</div>
+        </div>
+
+        
+        <div class="relative left-[0.875rem] top-[2.1875rem] w-[77rem] h-[22.125rem] overflow-hidden flex flex-col py-[0.1875rem] justify-start items-start " >
+          <h2 class="title2"> The attentions of the molecule: </h2>
+          <table class="tablebox"  >
+          <tbody>
+              <tr>
+                    <td ><img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/attention1.jpg width="90%"> </td>
+                    <td ><img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/attention2.jpg width="90%"></td>
+                    <td ><img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/attention3.jpg width="90%"></td>
+
+              </tr>
+              <tr>
+                    <td style="text-align:center">Threshold:  -1.0 </td>
+                    <td style="text-align:center">Threshold:  0.0 </td>
+                    <td style="text-align:center">Threshold:  0.5 </td>        
+              </tr>
+
+          </tbody>
+          </table>
+        </div>
+
+
+        
+        <div class="similarity_all">
+            <h2 class="title2"> Top 5 drugs in 4 modalities (2D, 3D, Bio, Text): </h2>
+            <table class="tablebox"  >
+              <tbody>
+                  <tr>
+                        <th colspan="5" >2D: </td>                            
+                  </tr>
+                  <tr>
+                        <td >The top 5 drugs are:  </td> 
+                        <td colspan="4"> DB16962, DB07505, DB15796, DB02243, DB01712 </td>         
+                  </tr>
+                  <tr>
+                        <td style="text-align:center">DB16962</td>
+                        <td style="text-align:center">DB07505</td>
+                        <td style="text-align:center">DB15796</td>
+                        <td style="text-align:center">DB02243</td>
+                        <td style="text-align:center">DB01712</td>
+
+                  </tr>
+                  <tr>
+                        <td ><img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/2D-top-0.png width="100%"></td>
+                        <td > <img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/2D-top-1.png width="100%">  </td>
+                        <td ><img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/2D-top-2.png width="100%">  </td>   
+                        <td ><img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/2D-top-3.png width="100%">   </td>  
+                        <td ><img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/2D-top-4.png width="100%">    </td>       
+                  </tr>
+
+              </tbody>
+            </table>
+            <table class="tablebox"  >
+              <tbody>
+                  <tr>
+                        <th colspan="5" >3D: </td>
+
+                  </tr>
+                  <tr>
+                        <td >The top 5 drugs are:  </td> 
+                        <td colspan="4"> DB16962, DB02243, DB03837, DB08277, DB15796 </td>         
+                  </tr>
+                  <tr>
+                        <td style="text-align:center">DB03837</td>
+                        <td style="text-align:center">DB15796</td>
+                        <td style="text-align:center">DB07505</td>
+                        <td style="text-align:center">DB13090</td>
+                        <td style="text-align:center">DB08195</td>
+
+                  </tr>
+                  <tr>
+                        <td ><img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/3D-top-0.png width="100%"></td>
+                        <td > <img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/3D-top-1.png width="100%">  </td>
+                        <td ><img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/3D-top-2.png width="100%">  </td>   
+                        <td ><img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/3D-top-3.png width="100%">   </td>  
+                        <td ><img src=COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1/3D-top-4.png width="100%">    </td>       
+                  </tr>
+
+              </tbody>
+            </table>
+
+            <table class="tablebox"  >
+              <tbody>
+                  <tr>
+                        <th colspan="5" >Text: </td>
+
+                  </tr>
+                  <tr>
+                        <td >The top 5 drugs are:  </td> 
+                        <td colspan="4"> DB16962, DB15623, DB07505, DB01712, DB02243 </td>         
+                  </tr>
+                  <tr>
+                        <td style="text-align:center">DB15623</td>
+                        <td style="text-align:center">DB15796</td>
+                        <td style="text-align:center">DB13988</td>
+                        <td style="text-align:center">DB04887</td>
+                        <td style="text-align:center">DB09170</td>
+
+                  </tr>
+                  <tr>
+                        <td ><div class="commo-textover" >TMC-310911 (also known as ASC-09) is a novel investigational protease inhibitor (PI) that is structurally similar to the currently available [darunavir].[L12045] It is being investigated for use in HIV-1 infections. TMC-310911 has shown marked activity against a variety of HIV-1 strains, including multi-PI-resistant strains, and may be less likely to generate resistance, making it a potentially desirable therapy for both treatment-naive and PI-experienced patients.[L12045,A191643]
+
+TMC-310911 is currently being investigated, in combination with other HIV therapies and antivirals, as a potential treatment for COVID-19 caused by SARS-CoV-2.[L12012]</div> <div class="syn_botton" onclick="hideContent(this)" data-row="0">Click to Show/Hide</div></td>
+                        <td ><div class="commo-textover" >GC-376 is a 3C-like protease (3CL<sup>pro</sup> or M<sup>pro</sup>) inhibitor that stops the cleavage and activation of functional viral proteins required for replication and transcription in host cells[A219036]. The compound is known as a direct acting antiviral (DAA) for coronaviruses, and was initially developed using structure-guided design to combat MERS-Cov infections[A219036,A219056]. In addition, GC-376 displays potent activity against various coronaviruses such as feline, ferret, and mink M<sup>pro</sup> coronavirus[A219026,A219031,A219036,A219041]. A prodrug of [GC-373], GC-376 has recently been used to test inhibition of SARS-Cov-2 M<sup>pro</sup> _in vitro_, and results show potent inhibition of this target[A219036]. These results suggest that GC-376, and its metabolites may have therapeutic potential for Covid-19.</div> <div class="syn_botton" onclick="hideContent(this)" data-row="0">Click to Show/Hide</div></td>
+                        <td ><div class="commo-textover" >SB-269970 is an experimental drug developed by GlaxoSmithKline. In the studies performed with this agent, it has been suggested that SB-269970 acts either as a selective antagonist or inverse agonist of the serotonin receptor 7 (5-HT7).[A31816,A31817] </div></td>   
+                        <td ><div class="commo-textover" >Brecanavir (VX-385) an orally active aspartic protease inhibitor (PI), under investigation by Vertex and GlaxoSmithKline for the treatment of HIV. In July 2006, Vertex indicated that it expected GSK to initiate phase III trials of the drug in 2007. In December of 2006 GSK announced a decision to discontinue the development of brecanavir for the treatment of HIV. The decision was based on issues regarding the formulation of the drug.</div>  <div class="syn_botton" onclick="hideContent(this)" data-row="0">Click to Show/Hide</div></td>  
+                        <td ><div class="commo-textover" >β-Hydroxythiofentanyl is an analgesic of the _opioid_ class. This drug is an analog of fentanyl, a potent opioid. <div></td>       
+                  </tr>
+
+              </tbody>
+            </table>
+
+            <table class="tablebox"  >
+              <tbody>
+                  <tr>
+                        <th colspan="5" >Bio: </td>
+
+                  </tr>
+                  <tr>
+                        <td >The top 5 drugs are:  </td> 
+                        <td colspan="4"> DB16962, DB04033, DB03090, DB00731, DB03535  </td>         
+                  </tr>
+                  <tr>
+                        <td style="text-align:center">DB04033</td>
+                        <td style="text-align:center">DB03090</td>
+                        <td style="text-align:center">DB00731</td>
+                        <td style="text-align:center">DB03535</td>
+                        <td style="text-align:center">DB00881</td>
+
+                  </tr>
+                  <tr>
+                        <td ><div class="commo-textover" >target: Q9X5N2        enzyme: Unknown        drug categories: Unknown</div></td>
+                        <td ><div class="commo-textover" >target: P0DJ06        enzyme: Unknown        drug categories: Unknown</td>
+                        <td ><div class="commo-textover" >target: P37231| Q09428        enzyme: O60656| P08684| P10635| P11712| P20815| P23219| P24462        drug categories: |Alimentary Tract and Metabolism|Amino Acids|Amino Acids, Aromatic|Amino Acids, Cyclic|Amino Acids, Peptides, and Proteins|Blood Glucose Lowering Agents|Cyclohexanes|Cycloparaffins|Cytochrome P-450 CYP2C9 Substrates|Cytochrome P-450 CYP2D6 Substrates|Cytochrome P-450 CYP3A Substrates|Cytochrome P-450 CYP3A4 Substrates|Cytochrome P-450 CYP3A5 Substrates|Cytochrome P-450 CYP3A7 Substrates|Cytochrome P-450 Substrates|Drugs Used in Diabetes|Drugs that are Mainly Renally Excreted|Glinide|Hypoglycemia-Associated Agents|Insulin Secretagogues|OAT1/SLC22A6 inhibitors|Oral Hypoglycemics|Potassium Channel Blockers|UGT1A9 Substrates</div> <div class="syn_botton" onclick="hideContent(this)" data-row="0" >Click to Show/Hide</div></td>   
+                        <td ><div class="commo-textover" >target: P48147| Q9X6R4        enzyme: Unknown        drug categories: |Amino Acids, Peptides, and Proteins|Oligopeptides|Peptides</div> </td>  
+                        <td ><div class="commo-textover" >target: P12821        enzyme: P23141        drug categories: |ACE Inhibitors and Diuretics|Agents Acting on the Renin-Angiotensin System|Agents causing angioedema|Agents causing hyperkalemia|Angiotensin-Converting Enzyme Inhibitors|Antihypertensive Agents|Antihypertensive Agents Indicated for Hypertension|Cardiovascular Agents|Enzyme Inhibitors|Heterocyclic Compounds, Fused-Ring|Hypotensive Agents|Isoquinolines|OAT3/SLC22A8 Substrates|Protease Inhibitors|Tetrahydroisoquinolines</div> <div class="syn_botton" onclick="hideContent(this)" data-row="0" >Click to Show/Hide</div></td>       
+                  </tr>
+
+              </tbody>
+            </table>
+            <table class="tablebox"  >
+              <tbody>
+                  <tr>
+                        <th colspan="5" >Top-5 most similar drugs in a comprehensive perspective: </td>                            
+                  </tr>
+                  <tr>
+                        <td >The top 5 drugs are:  </td> 
+                        <td colspan="4"> DB16962, DB04033, DB03090, DB00731, DB03535  </td>         
+                  </tr>
+
+
+              </tbody>
+            </table>
+
+        </div>
+
+
+
+      </div>
+    </div>
+
+
+
+
+
+  </body>
+
+  <script type="text/javascript">
+
+
+    function hideContent(e) {
+
+        var node = document.getElementById("commo-textover");
+
+        var row = e.getAttribute("data-row");       
+        if (!row || row == 0) {
+            
+            element.className = ''
+            return;
+        }
+    }
+
+
+
+</script>
+</html>
