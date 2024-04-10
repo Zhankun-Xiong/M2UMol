@@ -119,15 +119,14 @@ where `--cfg` is the config file of DrugBAN, for the scaffold split setting, we 
 Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modalities, we developed a [molecular analysis API](https://github.com/Zhankun-Xiong/M2UMol/tree/main/molecular_analysis). To run it, you can use the following command: 
 ```
 cd molecular_analysis
-python moleculartool.py
+python moleculartool.py --genericname no
 ```
-You will then be asked to enter the options. :
+Note that `--genericname yes` can show the generic name of molecules. Then you will be asked to enter the options. :
 ```
 Please enter the SMILES of the molecule:COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1
 Please enter the threshold of the attention coefficient:(-1,1), separated by Spaces:-1 0 0.5
-Select whether Generic Name is required: yes or no:no
 ```
-Then you will obtain a a html files as follow:
+After that you can obtain a  html files as follow:
 <p align="center">
   <img src="pics/molecular_analysis.png" width="100%"/> 
 </p>
