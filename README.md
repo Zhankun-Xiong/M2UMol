@@ -45,7 +45,7 @@ pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -
 ## 2 Dataset
 
 ### 2.1 Pre-training dataset
-We constructed the multimodal pre-training dataset based on [DrugBank](https://go.drugbank.com/). We first download the full data in XML format from [this link](https://go.drugbank.com/releases/latest#full), and filter out molecules which can not be converted to the 2D molecular graph by RDKit. Then we can download the structure data of molecules in [this link](https://go.drugbank.com/releases/latest#structures), and extract molecular 2D and 3D structure from these data in SDF format, which are the '2Dstructures.sdf' and the '3Dstructures.sdf', respectively. After that, we extract the textual description of molecules from the full data, which is the 'description-sup.csv'. Finally we extract the bio features, which includes targets and enzymes the molecules can interact/affect and the drug categories the molecules belong to, and then we can obtain lists of all the occurring targets, enzymes and drug categories, which are the 'target_list.csv', 'enzyme_list.csv' and 'drugcate_list.csv'. For the molecules, we encode them using one-hot encoding based on its association with target, enzyme and drug categories, which are the 'targetfea.npy', 'targetfea.npy' and 'drugcatefea.npy'. Our multimodal pre-training dataset can be downloaded in [this link](https://huggingface.co/Zhankun-Xiong/M2UMol/tree/main/pretraining_M2UMol/data).
+We constructed the multimodal pre-training dataset based on [DrugBank](https://go.drugbank.com/). We first download the full data in XML format from [this link](https://go.drugbank.com/releases/latest#full), and filter out molecules which can not be converted to the 2D molecular graph by RDKit. Then we can download the structure data of molecules in [this link](https://go.drugbank.com/releases/latest#structures), and extract molecular 2D and 3D structure from these data in SDF format, which are the `2Dstructures.sdf` and the `3Dstructures.sdf`, respectively. After that, we extract the textual description of molecules from the full data, which is the `description-sup.csv`. Finally we extract the bio features, which includes targets and enzymes the molecules can interact/affect and the drug categories the molecules belong to, and then we can obtain lists of all the occurring targets, enzymes and drug categories, which are the `target_list.csv`, `enzyme_list.csv` and `drugcate_list.csv`. For the molecules, we encode them using one-hot encoding based on its association with target, enzyme and drug categories, which are the `targetfea.npy`, `targetfea.npy` and `drugcatefea.npy`. Our multimodal pre-training dataset can be downloaded in [this link](https://huggingface.co/Zhankun-Xiong/M2UMol/tree/main/pretraining_M2UMol/data).
 
 ### 2.2 Fine-tuning datasets
 #### Molecular property prediction
@@ -58,15 +58,11 @@ Or you can download the data we used in [this link]()
 
 
 #### Drug-drug interaction prediction
-For the drug-drug interaction prediction, we utilize the dataset from our previous work [MRCGNN](https://github.com/Zhankun-Xiong/MRCGNN), which inclus and applied cold start and scaffold split strategy to split the datasets, the details can be found in 'split.py'. After that, we obtain the DDI datasets in three folds(note that for the scaffold split setting, the training dataset and the test dataset are the same across three fold). Or you can directly download the data and data splits we used in [this link](https://huggingface.co/Zhankun-Xiong/M2UMol/tree/main/finetuning_M2UMol/DDI_task/data).
+For the drug-drug interaction prediction, we utilize the dataset from our previous work [MRCGNN](https://github.com/Zhankun-Xiong/MRCGNN), which consists of 191,570 DDIs between 1,700 drugs with 86 types of DDI events and every DDI is associated with a DDI event. We applied cold start and scaffold split strategy to split the datasets, the details can be found in `split.py`. After that, we obtain the DDI datasets in three folds(note that for the scaffold split setting, the training dataset and the test dataset are the same across three fold). Or you can directly download the data and data splits we used in [this link](https://huggingface.co/Zhankun-Xiong/M2UMol/tree/main/finetuning_M2UMol/DDI_task/data).
 
 #### Drug-target interaction prediction
-Since we used the DrugBAN framework for DTI prediction, the biosnap and BioSNAP datasets are downloaded in [DrugBAN datasets](https://github.com/peizhenbai/DrugBAN/tree/main/datasets). You can also find the data sources from [BindingDB](https://www.bindingdb.org/bind/index.jsp) and [BioSNAP](https://github.com/kexinhuang12345/MolTrans).
-The statistics about the data are as follows:
-| --- | Molecules | targets | DTIs |
-| --- | --- | --- | --- |
-| BindingDB | 14,643 | 2,623 | 49,199 |
-| BioSNAP | 4,510 | 2,181 | 27,464 |
+The origin datasets of drug-target prediction, BindingDB (consists of 49,199 DTIs between 14,643 molecules and 2,623 targets) and BioSNAP (consists of 27,464 DTIs between 4,510 molecules and 2,181 targets), can be obtained from [BindingDB](https://www.bindingdb.org/bind/index.jsp) and [BioSNAP](https://github.com/kexinhuang12345/MolTrans). Since we used the DrugBAN framework for DTI prediction, you can also download them in [DrugBAN datasets](https://github.com/peizhenbai/DrugBAN/tree/main/datasets) or directly download it in [this link](https://huggingface.co/Zhankun-Xiong/M2UMol/tree/main/finetuning_M2UMol/DTI_task/datasets).
+
 
 ## 3 Pretraining M2UMol
 You can first check the 'settings' in 'run_pretrain.py', and modify them according to your needs. You can also set parameters directly in the training command, for example:
@@ -75,11 +71,11 @@ You can first check the 'settings' in 'run_pretrain.py', and modify them accordi
 python run_pretrain.py --num_layers 3 --lr 0.001 --batch 32 --epochs 150 --tem 1.0 --mcls_loss_ratio 0.5 --output_name M2UMol
 ```
 
-For the Text encoder, we utlized a pre-trained large language model (LLM) PubMedBERT proposed by Microsoft. We download pre-trained PubMedBERT at [this Hugging Face link](https://huggingface.co/microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext/tree/main), and save them in a folder named 'pretrained-PubMedBERT'. For the 3D encoder, we utlized ComENet, a recently proposed method as the encoder, and implement it by using the [dive-into-graphs](https://github.com/divelab/DIG)
+For the Text encoder, we utlized a pre-trained large language model (LLM) PubMedBERT proposed by Microsoft. We download pre-trained PubMedBERT at [this Hugging Face link](https://huggingface.co/microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext/tree/main), and save them in a folder named `pretrained-PubMedBERT`. For the 3D encoder, we utlized ComENet, a recently proposed method as the encoder, and implement it by using the [dive-into-graphs](https://github.com/divelab/DIG)
 
-Note that the Text encoder and the 3D encoder are all further pre-trained in our pre-training phase, that is, the parameters of these models are not frozen. In addition, you can easily replace different large language models and 3D conformation encoders by modifying the parameters in 'layer.py'.
+Note that the Text encoder and the 3D encoder are all further pre-trained in our pre-training phase, that is, the parameters of these models are not frozen. In addition, you can easily replace different large language models and 3D conformation encoders by modifying the parameters in `layer.py`.
 
-The paramters of our pre-trained M2UMol can be found in 'pre-trained_M2UMol.pt' in ... fold.
+The paramters of our pre-trained M2UMol `pre-trained_M2UMol.pt` can be downloaded in our [huggingface project](https://huggingface.co/Zhankun-Xiong/M2UMol/blob/main/pre-trained_M2UMol.pt). After downloading it, you can put it in the same directory as the run script to use our API, demo or reproduce our results.
 
 ## 4 Finetuning on three downstream tasks
 We comprehensively verified the model performance of M2UMol through three downstream tasks: molecular property prediction, drug-drug interaction prediction and drug-target interaction prediction.
@@ -91,26 +87,26 @@ For the drug-drug interaction prediction, you can use the following commands for
 ```
 python run.py
 ```
-You can also set different parameters in 'run.py' or run for one time by the following commands:
+You can also set different parameters in `run.py` or run for one time by the following commands:
 ```
 python main.py --seed 0 --lr 0.0005 --batch 256 --weight_decay 0.0002 --dropout 0.7 --split scaffold
 ```
-where '--split cold' and '--split scaffold' can choose the split settings, we provide both cold start split setting and scaffold split setting, which we used in our paper.
+where `--split cold` and `--split scaffold` can choose the split settings, we provide both cold start split setting and scaffold split setting, which we used in our paper.
 
 ### Downstream task 3 :Drug-target interaction prediction
 For the drug-target interaction prediction, we utlized the framework of [DrugBAN](https://github.com/peizhenbai/DrugBAN) to evaluate the performances of M2UMol on the challenging cross-domain drug-target prediction tasks(named scaffold split setting in ou paper). Based on DrugBAN, we replace the molecular preprocessing procedure and the molecular encoder with our preprocessing procedure and M2UMol. You can use the following commands for training and testing for five times with five different seeds:
 ```
 python run.py
 ```
-You can also set different parameters in 'run.py' or run for one time by the following commands:
+You can also set different parameters in `run.py` or run for one time by the following commands:
 ```
 python main.py --cfg "configs/DrugBAN_DA.yaml" --data bindingdb --split "cluster" --seed 0
 ```
-where '--cfg' is the config file of DrugBAN, for the scaffold split setting, we recommend using 'DrugBAN_DA.yaml'. '--data' can choose the DTI datasets, 'bindingdb' and 'biosnap' are available. '--split' can choose the split settings, 'random' and 'cluster' are available('cluster' denotes the scaffold split setting in our paper).
+where `--cfg` is the config file of DrugBAN, for the scaffold split setting, we recommend using `DrugBAN_DA.yaml`. `--data` can choose the DTI datasets, 'bindingdb' and 'biosnap' are available. `--split` can choose the split settings, 'random' and 'cluster' are available('cluster' denotes the scaffold split setting in our paper).
 
 
 ## 5 Molecular analysis API of M2UMol
-Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modalities, we developed a molecular analysis API. To run it, you can use the following command: 
+Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modalities, we developed a [molecular analysis API](https://github.com/Zhankun-Xiong/M2UMol/tree/main/molecular_analysis). To run it, you can use the following command: 
 ```
 cd molecular_analysis
 python moleculartool.py
@@ -139,7 +135,7 @@ The specific explanations for each section are as follows:
 Here in, the example molecule we chose did not appear in our pre-training phase. For this molecule, only its SMILES is available in DrugBank, which can simulate an extreme case of molecular analysis where the available information about the molecule is sometimes very poor or only SMILES is available. The tool can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and search drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development. 
 
 ## 6 How to use M2UMol in your own project
-For how to use M2UMol as a general molecular encoder, we present an example in [here] and you can use it by using the command 'python toysample_encoder.py'. It can directly take SMILES as inputs and can learn fix representations with multimodal knowledge, which can be used as the feature or fingerprint of the molecule:
+For how to use M2UMol as a general molecular encoder, we present an example in [here](https://github.com/Zhankun-Xiong/M2UMol/tree/main/demo_for_using_M2UMol) and you can use it by using the command `python toysample_encoder.py`. It can directly take SMILES as inputs and can learn fix representations with multimodal knowledge, which can be used as the feature or fingerprint of the molecule:
 ```python
 import torch
 from data_process import create_all_graph_data,construct_graph
