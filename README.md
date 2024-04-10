@@ -82,6 +82,16 @@ We comprehensively verified the model performance of M2UMol through three downst
 
 ### Downstream task 1 :Molecular property prediction
 
+For the molecular property prediction, you can use the following commands for training and testing for three times with three different seeds (for the scanffold split setting, it means three different split):
+```
+python run.py
+```
+You can also set different parameters in `run.py` or run for one time by the following commands:
+```
+python train.py --dataset 'clintox' --runseed '0' --batch_size '64' --mweight_decay '0.0005'  --mdropout '0.2'  --mattdropout '0.1' --mlr '0.0005'  --jingtiaolr '0.0002' 
+```
+where `--split random` and `--split scaffold` can choose the split settings, --dataset 'clintox' can choose the dataset settings.
+
 ### Downstream task 2 :Drug-drug interaction prediction
 For the drug-drug interaction prediction, you can use the following commands for training and testing for three times with three different seeds (for the cold start split setting, it means three different split):
 ```
