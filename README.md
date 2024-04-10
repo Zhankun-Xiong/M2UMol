@@ -82,7 +82,7 @@ We comprehensively verified the model performance of M2UMol through three downst
 
 ### Downstream task 1 :Molecular property prediction
 
-For the molecular property prediction, you can use the following commands for training and testing for three times with three different seeds (for the scanffold split setting, it means three different split):
+For the molecular property prediction, you can use the following commands for training and testing for three times with three different seeds:
 ```
 python run.py
 ```
