@@ -6,7 +6,7 @@
 ![AppVeyor](https://img.shields.io/badge/transformers-4.39.2-brightgreen)
 
 ## Introduction
-This repository contains the pre-training data, source code, and API for the paper "Multi-to-uni Modal Knowledge Transfer Pre-training for Molecular Representation Learning". **M2UMol** is a **M**ulti-**to**-**U**ni modal knowledge transfer pre-training **Mol**ecular representation learning method. M2UMol can be deployed on incomplete multimodal data for efficient pre-training, and can well adapt to downstream tasks with only molecular 2D modality given, which benefits from that M2UMol can generate reliable multimodal representations solely based on molecular 2D topological graphs. It works well on molecular property prediction and molecular interaction prediction tasks, and can also perform key group identification and 2D-to-multimodal retrieval tasks.
+This repository contains the pre-training data, source code, and API for the paper "Multi-to-uni Modal Knowledge Transfer Pre-training for Molecular Representation Learning". <u>**M2UMol**</u> is a <u>**M**</u>ulti-<u>**to**</u>-<u>**U**</u>ni modal knowledge transfer pre-training <u>**Mol**</u>ecular representation learning method. M2UMol can be deployed on incomplete multimodal data for efficient pre-training, and can well adapt to downstream tasks with only molecular 2D modality given, which benefits from that M2UMol can generate reliable multimodal representations solely based on molecular 2D topological graphs. It works well on molecular property prediction and molecular interaction prediction tasks, and can also perform key group identification and 2D-to-multimodal retrieval tasks.
 
 
 ## Overview of M2UMol
