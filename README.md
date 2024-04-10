@@ -6,7 +6,7 @@
 ![AppVeyor](https://img.shields.io/badge/transformers-4.39.2-brightgreen)
 
 ## Introduction
-This repository contains the pre-training data, source code, and API for the paper "Multi-to-uni Modal Knowledge Transfer Pre-training for Molecular Representation Learning". **M2UMol** is a **M**ulti-**to**-**U**ni modal knowledge transfer pre-training **Mol**ecular representation learning method. The characteristic of M2UMol is that it can generate **reliable multimodal representations solely based on molecular 2D topological graphs**, which is the key to efficient pre-training on incomplete multimodal data and superior performances on downstream tasks with only molecular 2D modality given.
+This repository contains the pre-training data, source code, and API for the paper "Multi-to-uni Modal Knowledge Transfer Pre-training for Molecular Representation Learning". **M2UMol** is a **M**ulti-**to**-**U**ni modal knowledge transfer pre-training **Mol**ecular representation learning method. The characteristic of M2UMol is that it **can generate reliable multimodal representations solely based on molecular 2D topological graphs**, which is the key to efficient pre-training on incomplete multimodal data and superior performances on downstream tasks with only molecular 2D modality given.
 
 
 
@@ -45,33 +45,21 @@ pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -
 ## 2 Dataset
 
 ### 2.1 Pre-training dataset
-We constructed the [multimodal pre-training dataset]() based on [DrugBank](https://go.drugbank.com/). We first download the full data in XML format from [this link](https://go.drugbank.com/releases/latest#full), and filter out molecules which can not be converted to the 2D molecular graph by RDKit. Then we can download the structure data of molecules in [this link](https://go.drugbank.com/releases/latest#structures), and extract molecular 2D and 3D structure from these data in SDF format, which is the [2Dstructures.sdf] and the [3Dstructures.sdf], respectively. After that, we extract the textual description of molecules from the full data, which is the [description-sup.csv]. Finally we extract the targets and enzymes the molecules can interact/affect and the drug categories the molecules belong to, and obtain lists of all the occurring targets, enzymes and drug categories. For every molecule, we encode it using one-hot encoding based on its association with target, enzyme and drug categories.
-| Modality | 2D structure | 3D structure | Textual description | Target | Enzyme | Drug category |
-| --- | --- | --- | --- | --- | --- | --- |
-| Number | 11571 | 9468 | 6427 | 7124 | 1696 | 7365 |
-<p align="center">
-  <img src="pics/vene.png" width="30%"/> 
-</p>
+We constructed the multimodal pre-training dataset based on [DrugBank](https://go.drugbank.com/). We first download the full data in XML format from [this link](https://go.drugbank.com/releases/latest#full), and filter out molecules which can not be converted to the 2D molecular graph by RDKit. Then we can download the structure data of molecules in [this link](https://go.drugbank.com/releases/latest#structures), and extract molecular 2D and 3D structure from these data in SDF format, which are the '2Dstructures.sdf' and the '3Dstructures.sdf', respectively. After that, we extract the textual description of molecules from the full data, which is the 'description-sup.csv'. Finally we extract the bio features, which includes targets and enzymes the molecules can interact/affect and the drug categories the molecules belong to, and then we can obtain lists of all the occurring targets, enzymes and drug categories, which are the 'target_list.csv', 'enzyme_list.csv' and 'drugcate_list.csv'. For the molecules, we encode them using one-hot encoding based on its association with target, enzyme and drug categories, which are the 'targetfea.npy', 'targetfea.npy' and 'drugcatefea.npy'. Our multimodal pre-training dataset can be downloaded in [this link](https://huggingface.co/Zhankun-Xiong/M2UMol/tree/main/pretraining_M2UMol/data).
 
 ### 2.2 Fine-tuning datasets
 #### Molecular property prediction
-For the molecular property prediction, the datasets can obtained by the following commands:
+For the molecular property prediction, the origin datasets can obtained by the following commands:
 ```
 wget http://snap.stanford.edu/gnn-pretrain/data/chem_dataset.zip
 unzip chem_dataset.zip
 ```
-The statistics about the data are as follows:
-| Dataset | BBBP | Tox21 | ToxCast | Sider | Clintox | MUV | HIV | BACE |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Tasks | 1 | 12 | 617 | 27 | 2 | 17 | 1 | 1 |
-| Molecules | 2,039 | 7,831 | 8,575 | 1,427 | 1,478 | 93,087 | 41,127 | 1,513 |
+Or you can download the data we used in [this link]()
+
 
 #### Drug-drug interaction prediction
-For the drug-drug interaction prediction, we utilize the dataset from our previous work [MRCGNN](https://github.com/Zhankun-Xiong/MRCGNN), and applied cold start and scaffold split strategy to split the datasets, the details can be found in 'split.py'. After that, we obtain the DDI datasets in three folds(note that for the scaffold split setting, the training dataset and the test dataset are the same across three fold).
-The statistics about the data are as follows:
-| --- | Molecules | DDIs | DDIE types |
-| --- | --- | --- | --- |
-| DDI dataset | 1,700 | 191,570 | 86 |
+For the drug-drug interaction prediction, we utilize the dataset from our previous work [MRCGNN](https://github.com/Zhankun-Xiong/MRCGNN), which inclus and applied cold start and scaffold split strategy to split the datasets, the details can be found in 'split.py'. After that, we obtain the DDI datasets in three folds(note that for the scaffold split setting, the training dataset and the test dataset are the same across three fold). Or you can directly download the data and data splits we used in [this link](https://huggingface.co/Zhankun-Xiong/M2UMol/tree/main/finetuning_M2UMol/DDI_task/data).
+
 #### Drug-target interaction prediction
 Since we used the DrugBAN framework for DTI prediction, the biosnap and BioSNAP datasets are downloaded in [DrugBAN datasets](https://github.com/peizhenbai/DrugBAN/tree/main/datasets). You can also find the data sources from [BindingDB](https://www.bindingdb.org/bind/index.jsp) and [BioSNAP](https://github.com/kexinhuang12345/MolTrans).
 The statistics about the data are as follows:
