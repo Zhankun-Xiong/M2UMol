@@ -136,7 +136,7 @@ The specific explanations for each section are as follows:
   <img src="pics/molecular_analysis_des.png" width="100%"/> 
 </p>
 
-#### Matters needing attention about the API:
+### Matters needing attention about the API:
 1. The Canonical SMILES is recommended as the input.
 2. Some molecules may have long generic names, you can often choose 'no' to make the result more concise.
 3. The html file will be generated in 'HTMLpainter' fold, which named in the format "$YOUR SMILES$-molecular_information.html". You can open it up and view the molecular analysis we provided. In addition, a folder named "$YOUR SMILES$" containing the attention visualizations and the molecular structure images will be generated, please keep this folder in the same directory as the html file). 
