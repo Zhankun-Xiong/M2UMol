@@ -80,7 +80,7 @@ The paramters of our pre-trained M2UMol `pre-trained_M2UMol.pt` can be downloade
 ## 4 Finetuning on three downstream tasks
 We comprehensively verified the model performance of M2UMol through three downstream tasks: molecular property prediction, drug-drug interaction prediction and drug-target interaction prediction.
 
-### Downstream task 1 :Molecular property prediction
+### 4.1 Downstream task 1 :Molecular property prediction
 
 For the molecular property prediction, you can use the following commands for training and testing for three times with three different seeds:
 ```
@@ -92,7 +92,7 @@ python train.py --dataset clintox --runseed 0 --batch_size 64 --mweight_decay 0.
 ```
 where `--split random` and `--split scaffold` can choose the split settings, `--dataset clintox` can choose the dataset settings.
 
-### Downstream task 2 :Drug-drug interaction prediction
+### 4.2 Downstream task 2 :Drug-drug interaction prediction
 For the drug-drug interaction prediction, you can use the following commands for training and testing for three times with three different seeds (for the cold start split setting, it means three different split):
 ```
 python run.py
@@ -103,7 +103,7 @@ python main.py --seed 0 --lr 0.0005 --batch 256 --weight_decay 0.0002 --dropout 
 ```
 where `--split cold` and `--split scaffold` can choose the split settings, we provide both cold start split setting and scaffold split setting, which we used in our paper.
 
-### Downstream task 3 :Drug-target interaction prediction
+### 4.3 Downstream task 3 :Drug-target interaction prediction
 For the drug-target interaction prediction, we utlized the framework of [DrugBAN](https://github.com/peizhenbai/DrugBAN) to evaluate the performances of M2UMol on the challenging cross-domain drug-target prediction tasks(named scaffold split setting in ou paper). Based on DrugBAN, we replace the molecular preprocessing procedure and the molecular encoder with our preprocessing procedure and M2UMol. You can use the following commands for training and testing for five times with five different seeds:
 ```
 python run.py
@@ -136,7 +136,7 @@ The specific explanations for each section are as follows:
   <img src="pics/molecular_analysis_des.png" width="100%"/> 
 </p>
 
-### Matters needing attention about the API:
+#### Matters needing attention about the API:
 1. The Canonical SMILES is recommended as the input.
 2. Some molecules may have long generic names, you can often choose 'no' to make the result more concise.
 3. The html file will be generated in 'HTMLpainter' fold, which named in the format "$YOUR SMILES$-molecular_information.html". You can open it up and view the molecular analysis we provided. In addition, a folder named "$YOUR SMILES$" containing the attention visualizations and the molecular structure images will be generated, please keep this folder in the same directory as the html file). 
