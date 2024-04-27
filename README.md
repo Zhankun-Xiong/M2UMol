@@ -54,7 +54,7 @@ For the molecular property prediction, the origin datasets can obtained by the f
 wget http://snap.stanford.edu/gnn-pretrain/data/chem_dataset.zip
 unzip chem_dataset.zip
 ```
-Or you can download the data we used in [this link]()
+Or you can download the data we used in [this link](https://huggingface.co/datasets/Zhankun-Xiong/Dataset_for_M2UMol/tree/main/finetuning_M2UMol/MPP_task)
 
 
 #### Drug-drug interaction prediction
