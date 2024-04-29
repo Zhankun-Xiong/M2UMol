@@ -1,0 +1,11 @@
+setup2dpainter.py
+rdkit_heatmap.egg-info/PKG-INFO
+rdkit_heatmap.egg-info/SOURCES.txt
+rdkit_heatmap.egg-info/dependency_links.txt
+rdkit_heatmap.egg-info/requires.txt
+rdkit_heatmap.egg-info/top_level.txt
+rdkit_heatmaps/__init__.py
+rdkit_heatmaps/functions.py
+rdkit_heatmaps/heatmaps.py
+rdkit_heatmaps/molmapping.py
+rdkit_heatmaps/utils.py
