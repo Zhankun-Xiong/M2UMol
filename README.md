@@ -6,7 +6,7 @@
 ![AppVeyor](https://img.shields.io/badge/transformers-4.39.2-brightgreen)
 
 ## Introduction
-This repository contains the pre-training data, source code, and API for the paper "Multi-to-uni Modal Knowledge Transfer Pre-training for Molecular Representation Learning". **M2UMol** is a **M**ulti-**to**-**U**ni modal knowledge transfer pre-training **Mol**ecular representation learning method. The characteristic of M2UMol is that it **can generate reliable multimodal representations solely based on molecular 2D topological graphs**, which is the key to efficient pre-training on incomplete multimodal data and superior performances on downstream tasks with only molecular 2D modality given.
+This repository contains the pre-training data, source code, and package for the paper "Multi-to-uni Modal Knowledge Transfer Pre-training for Molecular Representation Learning". **M2UMol** is a **M**ulti-**to**-**U**ni modal knowledge transfer pre-training **Mol**ecular representation learning method. The characteristic of M2UMol is that it **can generate reliable multimodal representations solely based on molecular 2D topological graphs**, which is the key to efficient pre-training on incomplete multimodal data and superior performances on downstream tasks with only molecular 2D modality given.
 
 
 
@@ -74,7 +74,7 @@ For the Text encoder, we utlized a pre-trained large language model (LLM) PubMed
 
 Note that the Text encoder and the 3D encoder are all further pre-trained in our pre-training phase, that is, the parameters of these models are not frozen. In addition, you can easily replace different large language models and 3D conformation encoders by modifying the parameters in `layer.py`.
 
-The paramters of our pre-trained M2UMol `pre-trained_M2UMol.pt` can be downloaded in our [huggingface project](https://huggingface.co/datasets/Zhankun-Xiong/Dataset_for_M2UMol/blob/main/pre-trained_M2UMol.pt). After downloading it, you can put it in the same directory as the run script to use our API, demo or reproduce our results.
+The paramters of our pre-trained M2UMol `pre-trained_M2UMol.pt` can be downloaded in our [huggingface project](https://huggingface.co/datasets/Zhankun-Xiong/Dataset_for_M2UMol/blob/main/pre-trained_M2UMol.pt). After downloading it, you can put it in the same directory as the run script to use our package or reproduce our results.
 
 ## 4 Finetuning on three downstream tasks
 We comprehensively verified the model performance of M2UMol through three downstream tasks: molecular property prediction, drug-drug interaction prediction and drug-target interaction prediction.
@@ -117,7 +117,7 @@ where `--cfg` is the config file of DrugBAN, for the scaffold split setting, we 
 ## 5 The package based on M2UMol
 
 ### 5.1 How to use M2UMol for molecular representation learning in your own project
-For how to use M2UMol as a general molecular encoder, we present an example in [here](https://github.com/Zhankun-Xiong/M2UMol/tree/main/demo_for_using_M2UMol) and you can use it by using the command `python toysample_encoder.py`. It can directly take SMILES as inputs and can learn fix representations with multimodal knowledge, which can be used as the feature or fingerprint of the molecule:
+For how to use M2UMol as a general molecular encoder, we present an example in [here](https://github.com/Zhankun-Xiong/M2UMol/tree/main/M2UMol_package/molecular_representation_learning) and you can use it by using the command `python toysample_encoder.py`. It can directly take SMILES as inputs and can learn fix representations with multimodal knowledge, which can be used as the feature or fingerprint of the molecule:
 ```python
 import torch
 from data_process import create_all_graph_data,construct_graph
@@ -189,9 +189,8 @@ for epoch in range(10):
 ```
 
 ### 5.2 Molecular analysis tool
-We combined M2UMol's ability to discover important functional groups and multimodal retrieval to develop a molecular analysis tool [molecular analysis tool](https://github.com/Zhankun-Xiong/M2UMol/tree/main/molecular_analysis) and integrate it into package. To run it, you can use the following command: 
+We combined M2UMol's ability to discover important functional groups and multimodal retrieval to develop a molecular analysis tool [molecular analysis tool](https://github.com/Zhankun-Xiong/M2UMol/tree/main/M2UMol_package/molecular_analysis) and integrate it into package. To run it, you can use the following command: 
 ```
-cd molecular_analysis
 python moleculartool.py --genericname no
 ```
 Note that `--genericname yes` can show the generic name of molecules. Then you will be asked to enter the options. :
@@ -209,11 +208,11 @@ The specific explanations for each section are as follows:
   <img src="pics/molecular_analysis_des.png" width="100%"/> 
 </p>
 
-#### Matters needing attention about the API:
+#### Matters needing attention about the tool:
 1. The Canonical SMILES is recommended as the input.
 2. Some molecules may have long generic names, you can often choose 'no' to make the result more concise.
 3. The html file will be generated in 'HTMLpainter' fold, which named in the format "$YOUR SMILES$-molecular_information.html". You can open it up and view the molecular analysis we provided. In addition, a folder named "$YOUR SMILES$" containing the attention visualizations and the molecular structure images will be generated, please keep this folder in the same directory as the html file).
-4. Due to size limitations, the data on which the API is based can be downloaded in [this link](https://huggingface.co/datasets/Zhankun-Xiong/Dataset_for_M2UMol/tree/main/molecular_analysis).
+4. Due to size limitations, the data on which the tool is based can be downloaded in [this link](https://huggingface.co/datasets/Zhankun-Xiong/Dataset_for_M2UMol/tree/main/molecular_analysis).
 
 Here in, the example molecule we chose did not appear in our pre-training phase. For this molecule, only its SMILES is available in DrugBank, which can simulate an extreme case of molecular analysis where the available information about the molecule is sometimes very poor or only SMILES is available. The tool can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and search drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development. 
 
