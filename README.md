@@ -21,8 +21,7 @@ This repository contains the pre-training data, source code, and API for the pap
  - [Datasets](#Datasets)
  - [Pretraining M2UMol](#Pretraining-M2UMol)
  - [Finetuning M2UMol](#Finetuning-on-three-tasks)
- - [Molecular analysis API of M2UMol](#Molecular-analysis-API-of-M2UMol)
- - [How to use M2UMol in your own project](#How-to-use-M2UMol-in-your-own-project)
+ - [The package based on M2UMol](#The-package-based-on-M2UMol)
  - [Citation](#citation)
 
 ## 1 Environment installation
