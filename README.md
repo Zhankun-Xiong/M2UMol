@@ -115,36 +115,9 @@ python main.py --cfg "configs/DrugBAN_DA.yaml" --data bindingdb --split "cluster
 where `--cfg` is the config file of DrugBAN, for the scaffold split setting, we recommend using `DrugBAN_DA.yaml`. `--data` can choose the DTI datasets, 'bindingdb' and 'biosnap' are available. `--split` can choose the split settings, 'random' and 'cluster' are available('cluster' denotes the scaffold split setting in our paper).
 
 
-## 5 Molecular analysis API of M2UMol
-Considering that the proposed M2UMol has the ability to accurately focus on key molecular groups and perform cross-modal retrieval of multiple modalities, we developed a [molecular analysis API](https://github.com/Zhankun-Xiong/M2UMol/tree/main/molecular_analysis). To run it, you can use the following command: 
-```
-cd molecular_analysis
-python moleculartool.py --genericname no
-```
-Note that `--genericname yes` can show the generic name of molecules. Then you will be asked to enter the options. :
-```
-Please enter the SMILES of the molecule:COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1
-Please enter the threshold of the attention coefficient:(-1,1), separated by Spaces:-1 0 0.5
-```
-After that you can obtain a  html files as follow:
-<p align="center">
-  <img src="pics/molecular_analysis.png" width="100%"/> 
-</p>
+## 5 The package based on M2UMol
 
-The specific explanations for each section are as follows:
-<p align="center">
-  <img src="pics/molecular_analysis_des.png" width="100%"/> 
-</p>
-
-#### Matters needing attention about the API:
-1. The Canonical SMILES is recommended as the input.
-2. Some molecules may have long generic names, you can often choose 'no' to make the result more concise.
-3. The html file will be generated in 'HTMLpainter' fold, which named in the format "$YOUR SMILES$-molecular_information.html". You can open it up and view the molecular analysis we provided. In addition, a folder named "$YOUR SMILES$" containing the attention visualizations and the molecular structure images will be generated, please keep this folder in the same directory as the html file).
-4. Due to size limitations, the data on which the API is based can be downloaded in [this link](https://huggingface.co/datasets/Zhankun-Xiong/Dataset_for_M2UMol/tree/main/molecular_analysis).
-
-Here in, the example molecule we chose did not appear in our pre-training phase. For this molecule, only its SMILES is available in DrugBank, which can simulate an extreme case of molecular analysis where the available information about the molecule is sometimes very poor or only SMILES is available. The tool can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and search drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development. 
-
-## 6 How to use M2UMol in your own project
+### 5.1 How to use M2UMol for molecular representation learning in your own project
 For how to use M2UMol as a general molecular encoder, we present an example in [here](https://github.com/Zhankun-Xiong/M2UMol/tree/main/demo_for_using_M2UMol) and you can use it by using the command `python toysample_encoder.py`. It can directly take SMILES as inputs and can learn fix representations with multimodal knowledge, which can be used as the feature or fingerprint of the molecule:
 ```python
 import torch
@@ -215,6 +188,37 @@ for epoch in range(10):
     acc = roc_auc_score(label_ids.flatten().tolist(), output.flatten().tolist())
     print(acc)
 ```
+
+### 5.2 Molecular analysis tool
+We combined M2UMol's ability to discover important functional groups and multimodal retrieval to develop a molecular analysis tool [molecular analysis tool](https://github.com/Zhankun-Xiong/M2UMol/tree/main/molecular_analysis) and integrate it into package. To run it, you can use the following command: 
+```
+cd molecular_analysis
+python moleculartool.py --genericname no
+```
+Note that `--genericname yes` can show the generic name of molecules. Then you will be asked to enter the options. :
+```
+Please enter the SMILES of the molecule:COC(=O)N1CCC[C@H](NS(C)(=O)=O)[C@@H]1CO[C@H]1CC[C@H](CC1)C1=CC=CC=C1
+Please enter the threshold of the attention coefficient:(-1,1), separated by Spaces:-1 0 0.5
+```
+After that you can obtain a  html files as follow:
+<p align="center">
+  <img src="pics/molecular_analysis.png" width="100%"/> 
+</p>
+
+The specific explanations for each section are as follows:
+<p align="center">
+  <img src="pics/molecular_analysis_des.png" width="100%"/> 
+</p>
+
+#### Matters needing attention about the API:
+1. The Canonical SMILES is recommended as the input.
+2. Some molecules may have long generic names, you can often choose 'no' to make the result more concise.
+3. The html file will be generated in 'HTMLpainter' fold, which named in the format "$YOUR SMILES$-molecular_information.html". You can open it up and view the molecular analysis we provided. In addition, a folder named "$YOUR SMILES$" containing the attention visualizations and the molecular structure images will be generated, please keep this folder in the same directory as the html file).
+4. Due to size limitations, the data on which the API is based can be downloaded in [this link](https://huggingface.co/datasets/Zhankun-Xiong/Dataset_for_M2UMol/tree/main/molecular_analysis).
+
+Here in, the example molecule we chose did not appear in our pre-training phase. For this molecule, only its SMILES is available in DrugBank, which can simulate an extreme case of molecular analysis where the available information about the molecule is sometimes very poor or only SMILES is available. The tool can be used as an AI-assisted drug design tool to visualize the importance of each part of a molecule, retrieve data from the library for four modes, and search drugs that may be similar to it, while only inputting molecular SMILES. This information may be able to provide reference for researchers and guide the direction of experiments to a certain extent, which will help the process of drug discovery and drug development. 
+
+
 
 ## Cite Us
 Feel free to cite this work if you find it useful to you!
