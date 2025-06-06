@@ -12,7 +12,7 @@ This repository contains the pre-training data, source code, and package for the
 
 ## Overview of M2UMol
 <p align="center">
-  <img src="pics/overview.png" width="100%"/> 
+  <img src="pics/overview.jpg" width="100%"/> 
 </p>
 
 
