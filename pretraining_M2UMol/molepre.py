@@ -12,6 +12,7 @@ from rdkit import Chem
 import pandas as pd
 import numpy as np
 from rdkit.Chem.rdchem import Mol, HybridizationType, BondType
+from ogb.utils.features import atom_to_feature_vector, bond_to_feature_vector
 import pickle
 import csv
 from torch_scatter import scatter
@@ -57,29 +58,68 @@ def atom_features(atom, atom_symbols, explicit_H=True, use_chirality=False):
     results = np.array(results).astype(np.float32)
 
     return torch.from_numpy(results)
+
+################yuanyou
 def edge_features(bond):
-    bond_type = bond.GetBondType()
-    return torch.tensor([
-        bond_type == Chem.rdchem.BondType.SINGLE,
-        bond_type == Chem.rdchem.BondType.DOUBLE,
-        bond_type == Chem.rdchem.BondType.TRIPLE,
-        bond_type == Chem.rdchem.BondType.AROMATIC,
-        bond.GetIsConjugated(),
-        bond.IsInRing()]).long()
+    # bond_type = bond.GetBondType()
+    # return torch.tensor([
+    #     bond_type == Chem.rdchem.BondType.SINGLE,
+    #     bond_type == Chem.rdchem.BondType.DOUBLE,
+    #     bond_type == Chem.rdchem.BondType.TRIPLE,
+    #     bond_type == Chem.rdchem.BondType.AROMATIC,
+    #     bond.GetIsConjugated(),
+    #     bond.IsInRing()]).long()
+    # bond_type = bond.GetBondType()
+    return torch.tensor(bond_to_feature_vector(bond), dtype=torch.long)#.long()
+
+# def edge_features(bond):
+#     # bond_type = bond.GetBondType()
+#     # return torch.tensor([
+#     #     bond_type == Chem.rdchem.BondType.SINGLE,
+#     #     bond_type == Chem.rdchem.BondType.DOUBLE,
+#     #     bond_type == Chem.rdchem.BondType.TRIPLE,
+#     #     bond_type == Chem.rdchem.BondType.AROMATIC,
+#     #     bond.GetIsConjugated(),
+#     #     bond.IsInRing()]).long()
+#     bond_type = bond.GetBondType()
+#     return torch.tensor(bond_to_feature_vector(bond), dtype=torch.long)#.long()
+
+
+
 def get_mol_edge_list_and_feat_mtx(mol_graph, smiles,atom_symbols):
-    features = [(atom.GetIdx(), atom_features(atom,atom_symbols)) for atom in mol_graph.GetAtoms()]
+    features = [(atom.GetIdx(), torch.tensor(atom_to_feature_vector(atom), dtype=torch.long)) for atom in mol_graph.GetAtoms()]
     features.sort()  # to make sure that the feature matrix is aligned according to the idx of the atom
     _, features = zip(*features)
     features = torch.stack(features)
-
     edge_list = torch.LongTensor([(b.GetBeginAtomIdx(), b.GetEndAtomIdx(),*edge_features(b)) for b in mol_graph.GetBonds()])
-    edge_list, edge_feats = (edge_list[:, :2], edge_list[:, 2:].float()) if len(edge_list) else (
-    torch.LongTensor([]), torch.FloatTensor([]))
+    #edge_list, edge_feats = (edge_list[:, :2], edge_list[:, 2:].float()) if len(edge_list) else (
+    edge_list, edge_feats = (edge_list[:, :2], edge_list[:, 2:].long()) if len(edge_list) else (
+    torch.LongTensor([]), torch.LongTensor([]))
+    #torch.LongTensor([]), torch.FloatTensor([]))
     edge_list = torch.cat([edge_list, edge_list[:, [1, 0]]], dim=0) if len(edge_list) else edge_list
     edge_feats = torch.cat([edge_feats] * 2, dim=0) if len(edge_feats) else edge_feats
     undirected_edge_list = edge_list
 
     return undirected_edge_list.T, features, edge_feats
+
+################yuanyou
+# def get_mol_edge_list_and_feat_mtx(mol_graph, smiles,atom_symbols):
+#     features = [(atom.GetIdx(), atom_features(atom,atom_symbols)) for atom in mol_graph.GetAtoms()]
+#     features.sort()  # to make sure that the feature matrix is aligned according to the idx of the atom
+#     _, features = zip(*features)
+#     features = torch.stack(features)
+#     # print(222222222222222222)
+#     # print(features.shape)
+#     edge_list = torch.LongTensor([(b.GetBeginAtomIdx(), b.GetEndAtomIdx(),*edge_features(b)) for b in mol_graph.GetBonds()])
+#     edge_list, edge_feats = (edge_list[:, :2], edge_list[:, 2:].float()) if len(edge_list) else (
+#     torch.LongTensor([]), torch.FloatTensor([]))
+#     edge_list = torch.cat([edge_list, edge_list[:, [1, 0]]], dim=0) if len(edge_list) else edge_list
+#     edge_feats = torch.cat([edge_feats] * 2, dim=0) if len(edge_feats) else edge_feats
+#     undirected_edge_list = edge_list
+
+#     return undirected_edge_list.T, features, edge_feats
+
+
 def rdmol_to_data(mol, smiles=None, data_cls=Data):
 
 
