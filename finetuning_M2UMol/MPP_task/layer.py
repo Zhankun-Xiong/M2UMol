@@ -34,7 +34,7 @@ from torch_geometric.nn.conv import GPSConv,GINEConv
 from torch_geometric.utils import softmax
 from torch.nn.init import kaiming_uniform_, zeros_
 from torch_geometric.nn import global_mean_pool
-
+from ogb.graphproppred.mol_encoder import AtomEncoder, BondEncoder
 
 
 
