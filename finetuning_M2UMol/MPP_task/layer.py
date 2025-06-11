@@ -358,8 +358,10 @@ class MMDDI2d_256(nn.Module):
         self.dropout = 0.1
 
         self.norm = nn.LayerNorm(128, 1e-5)
-        self.linx = Linear(103, 120)
-        self.linedgea = Linear(6, 128)
+        #self.linx = Linear(103, 120)
+        self.linx=AtomEncoder(emb_dim=120)
+        #self.linedgea = Linear(6, 128)
+        self.linedgea=BondEncoder(emb_dim = 128)
         self.linto3d = Linear(128, 128)
         self.lintotext = Linear(128, 128)
         self.lintobio = Linear(128, 128)
