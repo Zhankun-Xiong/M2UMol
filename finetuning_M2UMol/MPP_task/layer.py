@@ -402,13 +402,22 @@ class MMDDI2d_256(nn.Module):
         zfinger = self.lintobio(feats2d)
         zfinger = self.norm(zfinger)
         zfinger = torch.unsqueeze(zfinger, dim=1)
-        z1 = torch.unsqueeze(z1, dim=1)
-        z11 = torch.cat((z3d, zwenben, zfinger), dim=1)
-        zl, _ = self.attnfea(z1, z11, z11)
 
-        # original
-        zl = z1 + zl
-        zl = torch.squeeze(zl)
+        z1_unsquee = torch.unsqueeze(z1, dim=1)#[256, 1, 128]
+        z11 = torch.cat((z3d, zwenben, zfinger), dim=1) #[256, 3, 128]
+        z1_repeat = z1_unsquee.repeat(1, 3, 1)
+        z11, _ = self.attnfea(z11, z1_repeat, z11) #[256, 3, 128]
+        z11_mean = torch.mean(z11, dim=1) #[256,  128]
+        zl = z1 + z11_mean #[256,128]
+
+        
+        # z1 = torch.unsqueeze(z1, dim=1)
+        # z11 = torch.cat((z3d, zwenben, zfinger), dim=1)
+        # zl, _ = self.attnfea(z1, z11, z11)
+
+        # # original
+        # zl = z1 + zl
+        # zl = torch.squeeze(zl)
         zall= self.MLP(zl, 1)
         return zall
 
