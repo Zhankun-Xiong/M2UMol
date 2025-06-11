@@ -47,6 +47,7 @@ from torch_geometric.nn.inits import reset
 from torch_geometric.nn.resolver import activation_resolver,normalization_resolver
 from torch_geometric.typing import Adj
 from torch_geometric.utils import to_dense_batch
+from ogb.graphproppred.mol_encoder import AtomEncoder, BondEncoder
 def set_random_seed(seed, deterministic=False):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
@@ -206,8 +207,10 @@ class M2UMol(nn.Module):
         self.depth = 3
 
         self.norm = nn.LayerNorm(128, 1e-5)
-        self.linx = Linear(103, 120)
-        self.linedgea = Linear(6, 128)
+        #self.linx = Linear(103, 120)
+        #self.linedgea = Linear(6, 128)
+        self.linx=AtomEncoder(emb_dim=120)
+        self.linedgea=BondEncoder(emb_dim = 128)
         self.relu1 = nn.LeakyReLU(0.2, inplace=True)
 
 
