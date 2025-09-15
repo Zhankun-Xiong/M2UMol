@@ -67,7 +67,7 @@ The origin datasets of drug-target prediction, BindingDB (consists of 49,199 DTI
 You can first check the 'settings' in 'run_pretrain.py', and modify them according to your needs. You can also set parameters directly in the training command, for example:
 
 ```
-python run_pretrain.py --num_layers 3 --lr 0.001 --batch 32 --epochs 150 --tem 1.0 --mcls_loss_ratio 0.5 --output_name M2UMol
+python run_pretrain.py --num_layers 3 --lr 0.001 --batch 32 --epochs 150 --tem 0.2 --mcls_loss_ratio 0.5 --output_name M2UMol
 ```
 
 For the Text encoder, we utlized a pre-trained large language model (LLM) PubMedBERT proposed by Microsoft. We download pre-trained PubMedBERT at [this Hugging Face link](https://huggingface.co/microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext/tree/main), and save them in a folder named `pretrained-PubMedBERT`, you can also derectly download in [this link](https://huggingface.co/datasets/Zhankun-Xiong/Dataset_for_M2UMol/tree/main/pretraining_M2UMol/pretrained-PubMedBERT). For the 3D encoder, we utlized ComENet, a recently proposed method as the encoder, and implement it by using the [dive-into-graphs](https://github.com/divelab/DIG)
