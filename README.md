@@ -74,7 +74,7 @@ For the Text encoder, we utlized a pre-trained large language model (LLM) PubMed
 
 Note that the Text encoder and the 3D encoder are all further pre-trained in our pre-training phase, that is, the parameters of these models are not frozen. In addition, you can easily replace different large language models and 3D conformation encoders by modifying the parameters in `layer.py`.
 
-The paramters of our pre-trained M2UMol `pre-trained_M2UMol.pt` can be downloaded in our [huggingface project](https://huggingface.co/datasets/Zhankun-Xiong/Dataset_for_M2UMol/blob/main/pre-trained_M2UMol.pt). After downloading it, you can put it in the same directory as the run script to use our package or reproduce our results.
+The parameters of our pre-trained M2UMol `pre-trained_M2UMol.pt` can be downloaded in our [huggingface project](https://huggingface.co/datasets/Zhankun-Xiong/Dataset_for_M2UMol/blob/main/pre-trained_M2UMol.pt). After downloading it, you can put it in the same directory as the run script to use our package or reproduce our results. For the DDI and DTI tasks, since their molecular encodings are slightly different from those of the MPP task, the pre-trained models corresponding to these two tasks can be found in the root directory of their respective tasks in Hugging Face.
 
 ## 4 Finetuning on three downstream tasks
 We comprehensively verified the model performance of M2UMol through three downstream tasks: molecular property prediction, drug-drug interaction prediction and drug-target interaction prediction.
